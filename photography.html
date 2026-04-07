@@ -127,7 +127,6 @@
 
             async function loadPortfolio() {
                 try {
-                    // Decap CMS automatically creates a JSON file with all entries from a folder.
                     const response = await fetch("/_photography.json");
                     if (!response.ok)
                         throw new Error("Network response was not ok");
@@ -135,33 +134,30 @@
 
                     gallery.innerHTML = ""; // Clear placeholders
 
-                    portfolioItems.forEach((item, index) => {
+                    portfolioItems.forEach((item) => {
                         const galleryImg = document.createElement("div");
                         galleryImg.className = "gallery-img";
-                        // Use the first category for the filter, make it lowercase
+
+                        // Set dataset attributes FIRST
                         if (item.categories && item.categories.length > 0) {
-                            galleryImg.dataset.cat =
-                                item.categories[0].toLowerCase();
+                            galleryImg.dataset.cat = item.categories
+                                .map((c) => c.toLowerCase())
+                                .join(" ");
                         }
+                        galleryImg.dataset.title = item.title || "Untitled";
+                        galleryImg.dataset.description = item.description || "";
+                        galleryImg.dataset.image = item.image;
 
-                        const img = document.createElement("img");
-                        img.src = item.image; // Path from the CMS data
-                        img.alt = item.title;
-                        img.loading = "lazy";
-
-                        const overlay = document.createElement("div");
-                        overlay.className = "photo-overlay";
-                        overlay.innerHTML = `
-                            <h3 class="title">${item.title}</h3>
-                            <p class="description">${item.description || ""}</p>
+                        // Now create the inner HTML
+                        galleryImg.innerHTML = `
+                            <img src="${item.image}" alt="${item.title}" loading="lazy">
+                            <div class="photo-overlay">
+                                <h3 class="title">${item.title}</h3>
+                            </div>
                         `;
-
-                        galleryImg.appendChild(img);
-                        galleryImg.appendChild(overlay);
                         gallery.appendChild(galleryImg);
                     });
 
-                    // Re-initialize animations and lightbox on the new dynamic items
                     setupInteractions();
                 } catch (error) {
                     console.error("Error fetching portfolio:", error);
@@ -170,21 +166,22 @@
                 }
             }
 
-            // 2. SETUP FOR ALL INTERACTIONS (Filters, Animations, Lightbox)
             function setupInteractions() {
-                const observerOptions = {
-                    root: document.getElementById("scrollArea"),
-                    threshold: 0.05,
-                    rootMargin: "0px 0px -50px 0px",
-                };
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add("is-visible");
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, observerOptions);
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add("is-visible");
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    {
+                        root: document.getElementById("scrollArea"),
+                        threshold: 0.05,
+                        rootMargin: "0px 0px -50px 0px",
+                    },
+                );
 
                 document
                     .querySelectorAll(".fade-element, .gallery-img")
@@ -203,7 +200,9 @@
                         const filter = tab.dataset.filter;
                         items.forEach((item) => {
                             item.style.transitionDelay = "0s";
-                            const categories = item.dataset.cat.split(" ");
+                            const categories = item.dataset.cat
+                                ? item.dataset.cat.split(" ")
+                                : [];
                             if (
                                 filter === "all" ||
                                 categories.includes(filter)
@@ -222,7 +221,10 @@
 
                 function openLightbox(data) {
                     lbMedia.innerHTML = `<img src="${data.image}" alt="${data.title}" />`;
-                    lbInfo.innerHTML = `<h3>${data.title}</h3><p>${data.description}</p>`;
+                    const descriptionText = data.description
+                        ? `<p>${data.description}</p>`
+                        : "";
+                    lbInfo.innerHTML = `<h3>${data.title}</h3>${descriptionText}`;
                     lb.classList.add("open");
                 }
 
@@ -232,11 +234,7 @@
 
                 items.forEach((item) => {
                     item.addEventListener("click", () => {
-                        openLightbox({
-                            image: item.dataset.image,
-                            title: item.dataset.title,
-                            description: item.dataset.description,
-                        });
+                        openLightbox(item.dataset);
                     });
                 });
 

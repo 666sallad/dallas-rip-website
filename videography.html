@@ -104,13 +104,15 @@
                     videoItems.forEach((item) => {
                         const videoCard = document.createElement("div");
                         videoCard.className = "video-card";
+
+                        // Set dataset attributes FIRST
                         videoCard.dataset.videoUrl = item.video_url;
-                        videoCard.dataset.title = item.title;
+                        videoCard.dataset.title = item.title || "Untitled";
                         videoCard.dataset.description = item.description || "";
 
-                        // Create inner HTML for the card
+                        // Now create the inner HTML
                         videoCard.innerHTML = `
-                            <video src="${item.thumbnail}" autoplay loop muted playsinline loading="lazy"></video>
+                            <img src="${item.thumbnail}" alt="${item.title}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
                             <div class="play-icon"></div>
                             <div class="video-overlay">
                                 <h3 class="video-title">${item.title}</h3>
