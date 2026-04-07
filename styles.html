@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>dallas.rip // style guide</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            /* ==========================================================================
+   GLOBAL CSS VARIABLES (Gen X Soft Club / HUD Aesthetic)
+   ========================================================================== */
+            :root {
+                --bg-dark: #050505;
+                --glass: rgba(255, 255, 255, 0.03);
+                --glass-hover: rgba(255, 255, 255, 0.08);
+                --glass-border: rgba(255, 255, 255, 0.15);
+                --text-main: #ffffff;
+                --text-muted: #aaaaaa;
+                --text-dim: #777777;
+
+                --mono: "Share Tech Mono", monospace;
+                --sans: "Syne", sans-serif;
+            }
+
+            /* ==========================================================================
+   BASE RESET
+   ========================================================================== */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            html,
+            body {
+                height: 100%;
+                background: #000;
+                color: var(--text-main);
+                font-family: var(--mono);
+                overflow: hidden; /* Prevent body scroll, handle inside screen */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            /* ==========================================================================
+   MONITOR BEZEL & SCREEN WRAPPER
+   ========================================================================== */
+            .monitor-bezel {
+                width: 95vw;
+                max-width: 1200px;
+                height: 90vh;
+                background: #0a0a0a;
+                border-radius: 24px;
+                padding: 15px;
+                box-shadow:
+                    0 0 0 2px #1a1a1a,
+                    0 20px 50px rgba(0, 0, 0, 0.8),
+                    inset 0 0 2px rgba(255, 255, 255, 0.1);
+                position: relative;
+            }
+
+            .monitor-screen {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                border-radius: 12px;
+                background: var(--bg-dark);
+                overflow-y: auto; /* Allow scrolling inside the screen */
+                overflow-x: hidden;
+                box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.9);
+            }
+
+            /* Scrollbar styling for the screen */
+            .monitor-screen::-webkit-scrollbar {
+                width: 6px;
+            }
+            .monitor-screen::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            .monitor-screen::-webkit-scrollbar-thumb {
+                background: var(--text-dim);
+                border-radius: 3px;
+            }
+
+            /* ==========================================================================
+   BACKGROUND PLATES & OVERLAYS
+   ========================================================================== */
+            .screen-bg {
+                position: fixed; /* Fixed relative to screen */
+                inset: -10%;
+                width: 120%;
+                height: 120%;
+                background:
+                    linear-gradient(
+                        105deg,
+                        rgba(20, 20, 20, 1) 0%,
+                        rgba(60, 65, 70, 0.5) 50%,
+                        rgba(10, 10, 15, 1) 100%
+                    ),
+                    repeating-linear-gradient(
+                        90deg,
+                        transparent 0,
+                        transparent 40px,
+                        rgba(255, 255, 255, 0.02) 40px,
+                        rgba(255, 255, 255, 0.02) 80px
+                    );
+                filter: blur(8px);
+                z-index: 0;
+                opacity: 0.8;
+                pointer-events: none;
+            }
+
+            .screen-overlay {
+                position: fixed;
+                inset: 0;
+                background:
+                    linear-gradient(
+                        rgba(18, 16, 16, 0) 50%,
+                        rgba(0, 0, 0, 0.25) 50%
+                    ),
+                    linear-gradient(
+                        90deg,
+                        rgba(255, 0, 0, 0.06),
+                        rgba(0, 255, 0, 0.02),
+                        rgba(0, 0, 255, 0.06)
+                    );
+                background-size:
+                    100% 2px,
+                    3px 100%;
+                pointer-events: none;
+                z-index: 10;
+                box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
+            }
+
+            /* ==========================================================================
+   STYLE GUIDE CONTENT CONTAINER
+   ========================================================================== */
+            .content-layer {
+                position: relative;
+                z-index: 2;
+                padding: 40px 60px;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            /* Typography styles inside guide */
+            h1,
+            h2,
+            h3 {
+                font-family: var(--sans);
+            }
+            h1 {
+                font-size: 40px;
+                font-weight: 800;
+                letter-spacing: -0.03em;
+                color: var(--text-main);
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+                margin-bottom: 10px;
+            }
+            h2 {
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--text-muted);
+                margin: 60px 0 20px;
+                border-bottom: 1px solid var(--glass-border);
+                padding-bottom: 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.2em;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            h2::before {
+                content: ">:";
+                color: var(--text-dim);
+            }
+            p {
+                margin-bottom: 20px;
+                color: var(--text-muted);
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            /* Micro-text utility */
+            .micro-text {
+                font-size: 10px;
+                letter-spacing: 0.2em;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                font-family: var(--mono);
+            }
+
+            /* ==========================================================================
+   STYLE GUIDE COMPONENTS
+   ========================================================================== */
+
+            /* Color Swatches */
+            .swatch-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 20px;
+                margin-bottom: 40px;
+            }
+            .swatch {
+                border: 1px solid var(--glass-border);
+                padding: 10px;
+                background: rgba(0, 0, 0, 0.3);
+                backdrop-filter: blur(5px);
+            }
+            .swatch-color {
+                height: 60px;
+                margin-bottom: 10px;
+                border: 1px solid var(--glass-border);
+            }
+            .swatch-name {
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--text-main);
+            }
+            .swatch-hex {
+                font-size: 10px;
+                color: var(--text-dim);
+            }
+
+            /* HUD Glass Panel */
+            .glass-panel {
+                background: var(--glass);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border: 1px solid var(--glass-border);
+                padding: 30px;
+                margin-bottom: 30px;
+                position: relative;
+            }
+            .glass-panel-header {
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 1px solid var(--glass-border);
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+
+            /* Interactive Link Component */
+            .dir-link {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                color: var(--text-muted);
+                padding: 16px 10px;
+                transition: all 0.2s ease;
+                position: relative;
+                overflow: hidden;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                background: rgba(0, 0, 0, 0.3);
+            }
+            .dir-link::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 2px;
+                background: var(--text-main);
+                transform: scaleY(0);
+                transition: transform 0.2s ease;
+                transform-origin: bottom;
+            }
+            .dir-link:hover {
+                color: var(--text-main);
+                background: var(--glass-hover);
+                padding-left: 20px;
+            }
+            .dir-link:hover::before {
+                transform: scaleY(1);
+            }
+            .dir-arrows {
+                letter-spacing: -2px;
+                margin-right: 15px;
+                font-size: 12px;
+                opacity: 0.4;
+                transition: opacity 0.2s;
+            }
+            .dir-link:hover .dir-arrows {
+                opacity: 1;
+            }
+            .dir-name {
+                font-size: 16px;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                flex-grow: 1;
+            }
+            .dir-meta {
+                font-size: 10px;
+                letter-spacing: 0.1em;
+                opacity: 0;
+                transform: translateX(-10px);
+                transition: all 0.2s;
+            }
+            .dir-link:hover .dir-meta {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            /* Buttons */
+            .hud-btn {
+                background: transparent;
+                color: var(--text-main);
+                font-family: var(--mono);
+                border: 1px solid var(--text-dim);
+                padding: 12px 24px;
+                text-transform: uppercase;
+                font-size: 12px;
+                letter-spacing: 0.2em;
+                cursor: pointer;
+                transition: all 0.2s;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                text-decoration: none;
+            }
+            .hud-btn:hover {
+                border-color: var(--text-main);
+                background: var(--glass-hover);
+                padding-left: 30px;
+            }
+
+            /* Grid Line Decorator */
+            .hud-grid-line {
+                height: 1px;
+                background: var(--glass-border);
+                width: 100%;
+                margin: 40px 0;
+                position: relative;
+            }
+            .hud-grid-line::after {
+                content: "00-0A";
+                position: absolute;
+                right: 0;
+                top: -15px;
+                font-size: 10px;
+                color: var(--text-dim);
+                letter-spacing: 0.2em;
+            }
+
+            @media (max-width: 600px) {
+                .content-layer {
+                    padding: 20px;
+                }
+                h1 {
+                    font-size: 32px;
+                }
+                .monitor-bezel {
+                    padding: 8px;
+                    border-radius: 12px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="monitor-bezel">
+            <div class="monitor-screen">
+                <!-- Background Blur Plate -->
+                <div
+                    class="screen-bg"
+                    style="
+                        background-image: url(&quot;https://images.unsplash.com/photo-1601058268499-e52658b8ebf8?q=80&w=2000&auto=format&fit=crop&quot;);
+                        background-size: cover;
+                        background-position: center;
+                        filter: blur(12px) grayscale(50%);
+                    "
+                ></div>
+                <div class="screen-overlay"></div>
+
+                <div class="content-layer">
+                    <!-- HEADER -->
+                    <div class="micro-text" style="margin-bottom: 10px">
+                        Style Guide v2
+                    </div>
+                    <h1>Design System</h1>
+                    <p>
+                        Global CSS classes and components defining the "Gen X
+                        Soft Club" / Y2K HUD aesthetic for dallas.rip.
+                        Emphasizes heavy background blurs, frosted glass,
+                        micro-typography, and high-contrast glowing whites
+                        against muted grays.
+                    </p>
+
+                    <!-- COLORS -->
+                    <h2>01 // Color Palette</h2>
+                    <div class="swatch-grid">
+                        <div class="swatch">
+                            <div
+                                class="swatch-color"
+                                style="background: var(--bg-dark)"
+                            ></div>
+                            <div class="swatch-name">Base Void</div>
+                            <div class="swatch-hex">#050505</div>
+                        </div>
+                        <div class="swatch">
+                            <div
+                                class="swatch-color"
+                                style="
+                                    background: var(--text-main);
+                                    border-color: #333;
+                                "
+                            ></div>
+                            <div class="swatch-name">Text Main</div>
+                            <div class="swatch-hex">#FFFFFF</div>
+                        </div>
+                        <div class="swatch">
+                            <div
+                                class="swatch-color"
+                                style="background: var(--text-muted)"
+                            ></div>
+                            <div class="swatch-name">Text Muted</div>
+                            <div class="swatch-hex">#888888</div>
+                        </div>
+                        <div class="swatch">
+                            <div
+                                class="swatch-color"
+                                style="background: var(--text-dim)"
+                            ></div>
+                            <div class="swatch-name">Text Dim</div>
+                            <div class="swatch-hex">#444444</div>
+                        </div>
+                        <div class="swatch">
+                            <div
+                                class="swatch-color"
+                                style="background: var(--glass-border)"
+                            ></div>
+                            <div class="swatch-name">Glass Border</div>
+                            <div class="swatch-hex">RGBA(W, 0.15)</div>
+                        </div>
+                    </div>
+
+                    <!-- TYPOGRAPHY -->
+                    <h2>02 // Typography</h2>
+
+                    <div style="margin-bottom: 30px">
+                        <span
+                            class="micro-text"
+                            style="display: block; margin-bottom: 5px"
+                            >Heading (Syne)</span
+                        >
+                        <div
+                            style="
+                                font-family: var(--sans);
+                                font-size: 32px;
+                                font-weight: 800;
+                                letter-spacing: -0.03em;
+                                text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+                            "
+                        >
+                            Cinematic & Glowing
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 30px">
+                        <span
+                            class="micro-text"
+                            style="display: block; margin-bottom: 5px"
+                            >Data & UI (Share Tech Mono)</span
+                        >
+                        <p>
+                            This font is used for the structural HUD data,
+                            descriptions, and all interface elements. It
+                            provides that mechanical, tracking-monitor feel when
+                            paired with wide letter-spacing.
+                        </p>
+                    </div>
+
+                    <div style="margin-bottom: 30px">
+                        <span
+                            class="micro-text"
+                            style="display: block; margin-bottom: 5px"
+                            >Micro Text (.micro-text)</span
+                        >
+                        <div class="micro-text">
+                            06 09 038-24 00-0A // Navigation // SYS_ONLINE
+                        </div>
+                    </div>
+
+                    <!-- UI COMPONENTS -->
+                    <h2>03 // HUD UI Components</h2>
+
+                    <p style="margin-bottom: 20px">
+                        The core visual building block is the frosted glass
+                        panel combined with fine 1px borders.
+                    </p>
+
+                    <div class="glass-panel">
+                        <div class="glass-panel-header">
+                            <span class="micro-text">IMAGE_META_DATA</span>
+                            <span
+                                class="micro-text"
+                                style="color: var(--text-main)"
+                                >>> ></span
+                            >
+                        </div>
+                        <p style="margin-bottom: 0">
+                            This is a `.glass-panel`. It uses `backdrop-filter:
+                            blur(10px)` and a subtle white border to separate
+                            content from the heavily blurred background imagery.
+                        </p>
+                    </div>
+
+                    <div class="hud-grid-line"></div>
+
+                    <h3
+                        style="
+                            font-size: 14px;
+                            margin-bottom: 15px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.1em;
+                        "
+                    >
+                        Interactive Directory Link
+                    </h3>
+                    <div style="max-width: 500px; margin-bottom: 40px">
+                        <a href="#" class="dir-link">
+                            <span class="dir-arrows">>> ></span>
+                            <span class="dir-name">Sample Node</span>
+                            <span class="dir-meta">View</span>
+                        </a>
+                    </div>
+
+                    <h3
+                        style="
+                            font-size: 14px;
+                            margin-bottom: 15px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.1em;
+                        "
+                    >
+                        Action Button
+                    </h3>
+                    <a href="#" class="hud-btn"
+                        >Execute <span style="font-size: 10px">>></span></a
+                    >
+
+                    <div style="height: 60px"></div>
+                    <!-- spacer -->
+                </div>
+            </div>
+        </div>
+      <script src="footer.js"></script>
+  <!-- Global Footer -->
+  <div id="global-footer" style="margin-top: 60px;"></div>
+  <script src="header.js"></script>
+</body>
+</html>

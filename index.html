@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>dallas // directory</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="global.css" />
+    </head>
+    <body>
+        <div class="monitor-bezel">
+            <div class="monitor-screen">
+                <!-- Interactive Canvas Background for Homepage -->
+                <canvas id="cyber-canvas"></canvas>
+
+                <div class="screen-overlay"></div>
+
+                <div class="hud-layer">
+                    <!-- Global Header -->
+                    <div id="global-header"></div>
+
+                    <div class="hud-body">
+                        <!-- Cycling Header -->
+                        <div class="title-container">
+                            <div class="micro-text" style="margin-bottom: 10px">
+                                Navigation
+                            </div>
+                            <h1 class="title-main">
+                                dallas'
+                                <span class="cycle-wrapper">
+                                    <span class="cycle-text" id="cycler"
+                                        >directory</span
+                                    >
+                                </span>
+                            </h1>
+                        </div>
+
+                        <!-- Styled HUD Navigation -->
+                        <nav class="directory-nav fade-element is-visible">
+                            <div class="dir-header">
+                                <span>Services</span>
+                                <span>[4]</span>
+                            </div>
+                            <ul class="dir-list">
+                                <li class="dir-item">
+                                    <a href="photography.html" class="dir-link">
+                                        <span class="dir-arrows">>> ></span>
+                                        <span class="dir-name"
+                                            >Photography</span
+                                        >
+                                        <span class="dir-meta">View</span>
+                                    </a>
+                                </li>
+                                <li class="dir-item">
+                                    <a href="videography.html" class="dir-link">
+                                        <span class="dir-arrows">>> ></span>
+                                        <span class="dir-name"
+                                            >Videography</span
+                                        >
+                                        <span class="dir-meta">View</span>
+                                    </a>
+                                </li>
+                                <li class="dir-item">
+                                    <a href="websites.html" class="dir-link">
+                                        <span class="dir-arrows">>> ></span>
+                                        <span class="dir-name">Websites</span>
+                                        <span class="dir-meta">View</span>
+                                    </a>
+                                </li>
+                                <li class="dir-item">
+                                    <a href="advertising.html" class="dir-link">
+                                        <span class="dir-arrows">>> ></span>
+                                        <span class="dir-name"
+                                            >Advertising</span
+                                        >
+                                        <span class="dir-meta">View</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                        <div id="global-footer" style="margin-top: 60px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Y2K Backspace Typing Effect
+            const words = [
+                "directory",
+                "linktree",
+                "portfolio",
+                "homepage",
+                "website",
+            ];
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            const cyclerEl = document.getElementById("cycler");
+
+            cyclerEl.innerHTML =
+                '<span id="type-text"></span><span class="cursor-blink" style="display:inline-block; width:8px; height:1em; background:var(--text-main); vertical-align:middle; margin-left:4px; animation:blink 1s step-end infinite;"></span>';
+            const typeTextEl = document.getElementById("type-text");
+
+            function type() {
+                const currentWord = words[wordIndex];
+
+                if (isDeleting) {
+                    typeTextEl.textContent = currentWord.substring(
+                        0,
+                        charIndex - 1,
+                    );
+                    charIndex--;
+                } else {
+                    typeTextEl.textContent = currentWord.substring(
+                        0,
+                        charIndex + 1,
+                    );
+                    charIndex++;
+                }
+
+                let typeSpeed = isDeleting ? 50 : 150;
+
+                if (!isDeleting && charIndex === currentWord.length) {
+                    typeSpeed = 2000;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    typeSpeed = 500;
+                }
+
+                setTimeout(type, typeSpeed);
+            }
+
+            setTimeout(type, 1000);
+        </script>
+        <script src="footer.js"></script>
+        <script src="header.js"></script>
+        <script src="canvas.js"></script>
+    </body>
+</html>

@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>dallas.rip // about</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="global.css" />
+    </head>
+    <body>
+        <div class="monitor-bezel">
+            <div class="monitor-screen" id="scrollArea">
+                <!-- Interactive Canvas Background -->
+
+                <div class="screen-overlay"></div>
+
+                <div class="container">
+                    <!-- Navigation -->
+                    <nav
+                        class="nav-bar fade-element"
+                        style="transition-delay: 0.1s"
+                    >
+                        <a href="index.html" class="back-link"
+                            ><span style="font-size: 14px"><<</span>
+                            <span class="micro-text">Back to Home</span></a
+                        >
+                        <span class="micro-text">Profile</span>
+                    </nav>
+
+                    <!-- Hero -->
+                    <section
+                        class="hero fade-element"
+                        style="transition-delay: 0.2s"
+                    >
+                        <h1>About.</h1>
+                        <div
+                            style="
+                                height: 1px;
+                                width: 100px;
+                                background: var(--glass-border);
+                                margin-top: 20px;
+                            "
+                        ></div>
+                    </section>
+
+                    <!-- Manifesto Area -->
+                    <section
+                        class="manifesto-panel fade-element"
+                        id="manifestoPanel"
+                        style="transition-delay: 0.3s"
+                    >
+                        <div class="manifesto-content">
+                            <h2 class="manifesto-title">
+                                Creative Direction & Production.
+                            </h2>
+
+                            <p class="manifesto-text">
+                                Hi there! My name is Dallas. I work directly
+                                with brands and individuals to build compelling
+                                visual identities and interactive experiences.
+                            </p>
+                            <p class="manifesto-text">
+                                Operating globally from Brisbane, Australia, My
+                                focus remains on uncompromising quality and
+                                intent. If you like what you see, please reach
+                                out
+                                <a
+                                    href="mailto:contact@dallas.rip"
+                                    class="menu-link-glitch"
+                                    style="
+                                        color: var(--text-main);
+                                        text-decoration: none;
+                                        font-size: 16px;
+                                        font-weight: 600;
+                                        display: inline;
+                                    "
+                                    >contact@dallas.rip</a
+                                >
+                            </p>
+
+                            <div class="service-matrix">
+                                <div class="matrix-item">
+                                    <span class="matrix-label">Services</span>
+                                    <span class="matrix-val">Websites</span>
+                                </div>
+                                <div class="matrix-item">
+                                    <span class="matrix-label">Services</span>
+                                    <span class="matrix-val">Photography</span>
+                                </div>
+                                <div class="matrix-item">
+                                    <span class="matrix-label">Services</span>
+                                    <span class="matrix-val">Videography</span>
+                                </div>
+                                <div class="matrix-item">
+                                    <span class="matrix-label">Services</span>
+                                    <span class="matrix-val">Advertising</span>
+                                </div>
+
+                                <div
+                                    class="matrix-item"
+                                    style="margin-top: 20px"
+                                >
+                                    <span class="matrix-label">Location</span>
+                                    <span class="matrix-val">BNE, AUS</span>
+                                </div>
+                                <div
+                                    class="matrix-item"
+                                    style="margin-top: 20px"
+                                >
+                                    <span class="matrix-label"
+                                        >Availability</span
+                                    >
+                                    <span class="matrix-val">Global</span>
+                                </div>
+                                <div
+                                    class="matrix-item"
+                                    style="margin-top: 20px"
+                                >
+                                    <span class="matrix-label">Status</span>
+                                    <span
+                                        class="matrix-val"
+                                        style="
+                                            color: #10b981;
+                                            text-shadow: 0 0 10px
+                                                rgba(16, 185, 129, 0.4);
+                                            display: inline-flex;
+                                            align-items: center;
+                                            gap: 8px;
+                                        "
+                                    >
+                                        <span
+                                            style="
+                                                width: 8px;
+                                                height: 8px;
+                                                background-color: #10b981;
+                                                border-radius: 50%;
+                                                box-shadow: 0 0 8px #10b981;
+                                                display: inline-block;
+                                                animation: status-ping 2s
+                                                    cubic-bezier(0, 0, 0.2, 1)
+                                                    infinite;
+                                                position: relative;
+                                            "
+                                        >
+                                            <span
+                                                style="
+                                                    position: absolute;
+                                                    inset: 0;
+                                                    background-color: #10b981;
+                                                    border-radius: 50%;
+                                                    animation: status-ping-ripple
+                                                        2s
+                                                        cubic-bezier(
+                                                            0,
+                                                            0,
+                                                            0.2,
+                                                            1
+                                                        )
+                                                        infinite;
+                                                "
+                                            ></span>
+                                        </span>
+                                        Accepting Projects
+                                    </span>
+                                    <style>
+                                        @keyframes status-ping-ripple {
+                                            0% {
+                                                transform: scale(1);
+                                                opacity: 0.8;
+                                            }
+                                            75%,
+                                            100% {
+                                                transform: scale(3);
+                                                opacity: 0;
+                                            }
+                                        }
+                                    </style>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Global Footer -->
+                    <div id="global-footer" style="margin-top: 60px"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="footer.js"></script>
+        <script>
+            // 1. SCROLL ANIMATIONS
+            const observerOptions = {
+                root: document.getElementById("scrollArea"),
+                threshold: 0.05,
+                rootMargin: "0px 0px -50px 0px",
+            };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document
+                .querySelectorAll(".fade-element")
+                .forEach((el) => observer.observe(el));
+
+            // 2. INTERACTIVE SPOTLIGHT ON MANIFESTO PANEL
+            const panel = document.getElementById("manifestoPanel");
+            panel.addEventListener("mousemove", (e) => {
+                const rect = panel.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                panel.style.setProperty("--mouse-x", `${x}px`);
+                panel.style.setProperty("--mouse-y", `${y}px`);
+            });
+
+            // 3. CYBERSPACE CANVAS BACKGROUND (WOW FACTOR)
+            const canvas = document.getElementById("cyber-canvas");
+            const ctx = canvas.getContext("2d");
+
+            let width, height;
+            let particles = [];
+
+            // Track mouse coordinates for the canvas
+            let mouse = { x: null, y: null, radius: 150 };
+
+            // Need to track mouse globally relative to the monitor screen
+            const screenArea = document.getElementById("scrollArea");
+            screenArea.addEventListener("mousemove", (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+
+            screenArea.addEventListener("mouseleave", () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            function init() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+
+                particles = [];
+                const numParticles = (width * height) / 10000; // Adjust density
+
+                for (let i = 0; i < numParticles; i++) {
+                    const size = Math.random() * 1.5 + 0.5;
+                    const x = Math.random() * width;
+                    const y = Math.random() * height;
+                    const velocityX = Math.random() * 0.4 - 0.2;
+                    const velocityY = Math.random() * 0.4 - 0.2;
+
+                    particles.push(
+                        new Particle(x, y, velocityX, velocityY, size),
+                    );
+                }
+            }
+
+            class Particle {
+                constructor(x, y, velocityX, velocityY, size) {
+                    this.x = x;
+                    this.y = y;
+                    this.velocityX = velocityX;
+                    this.velocityY = velocityY;
+                    this.size = size;
+                    this.baseSize = size;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+                    ctx.fill();
+                }
+
+                update() {
+                    // Move particles
+                    this.x += this.velocityX;
+                    this.y += this.velocityY;
+
+                    // Bounce off edges
+                    if (this.x > width || this.x < 0)
+                        this.velocityX = -this.velocityX;
+                    if (this.y > height || this.y < 0)
+                        this.velocityY = -this.velocityY;
+
+                    // Interactivity
+                    if (mouse.x !== null) {
+                        let dx = mouse.x - this.x;
+                        let dy = mouse.y - this.y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < mouse.radius) {
+                            // Push away slightly and glow
+                            const force =
+                                (mouse.radius - distance) / mouse.radius;
+                            this.x -= (dx / distance) * force * 1;
+                            this.y -= (dy / distance) * force * 1;
+                            this.size = this.baseSize * 2;
+                        } else {
+                            this.size = this.baseSize;
+                        }
+                    }
+
+                    this.draw();
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                // Give it a subtle trailing effect
+                ctx.fillStyle = "rgba(5, 5, 5, 0.05)";
+                ctx.fillRect(0, 0, width, height);
+
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+
+                    // Connect nearby particles
+                    for (let j = i; j < particles.length; j++) {
+                        let dx = particles[i].x - particles[j].x;
+                        let dy = particles[i].y - particles[j].y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+
+                        // Draw connecting lines if close enough
+                        if (distance < 120) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - distance / 1200})`; // Fade out line based on distance
+                            ctx.lineWidth = 0.5;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // Handle Resize
+            window.addEventListener("resize", () => {
+                init();
+            });
+
+            // Start Animation
+            init();
+            animate();
+        </script>
+        <script src="header.js"></script>
+        <script src="canvas.js"></script>
+    </body>
+</html>

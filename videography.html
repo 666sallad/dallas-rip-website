@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>dallas.rip // videography</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="global.css" />
+    </head>
+    <body>
+        <div class="monitor-bezel">
+            <!-- Global Header -->
+            <div id="global-header"></div>
+
+            <div class="monitor-screen" id="scrollArea">
+                <div class="screen-overlay"></div>
+
+                <!-- IMMERSIVE HERO -->
+                <div class="hero-wrapper">
+                    <div
+                        class="hero-bg"
+                        id="heroBg"
+                        style="
+                            background-image: url(&quot;https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?q=80&w=2000&auto=format&fit=crop&quot;);
+                        "
+                    ></div>
+                    <div class="hero-vignette"></div>
+
+                    <div class="hero-content" id="heroContent">
+                        <div class="micro-text">Motion Picture Production</div>
+                        <h1 class="hero-title">Videography.</h1>
+                    </div>
+
+                    <div class="scroll-indicator" id="scrollIndicator">
+                        <span class="micro-text">SCROLL_TO_ACCESS</span>
+                        <div class="scroll-line"></div>
+                    </div>
+                </div>
+
+                <!-- Main Content Container -->
+                <div class="container">
+                    <!-- Gallery Header & Filters -->
+                    <div class="gallery-header fade-element">
+                        <h2 class="section-header">My Work</h2>
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" data-filter="all">
+                                All
+                            </button>
+                            <button class="filter-tab" data-filter="commercial">
+                                Commercial
+                            </button>
+                            <button
+                                class="filter-tab"
+                                data-filter="documentary"
+                            >
+                                Documentary
+                            </button>
+                            <button class="filter-tab" data-filter="music">
+                                Music
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Video Grid (Decap CMS Ready Structure) -->
+                    <!-- Note: We use stock video placeholders for now. Decap will replace the video src -->
+                    <div class="video-grid">
+                        <!-- Video 1 -->
+                        <div
+                            class="video-card"
+                            data-cat="commercial"
+                            data-full-video="https://www.w3schools.com/html/mov_bbb.mp4"
+                        >
+                            <video
+                                src="https://www.w3schools.com/html/mov_bbb.mp4"
+                                autoplay
+                                loop
+                                muted
+                                playsinline
+                            ></video>
+                            <div class="play-icon"></div>
+                            <div class="video-overlay">
+                                <span class="video-tag">Commercial</span>
+                                <h3 class="video-title">
+                                    Urban Utility Brand Campaign
+                                </h3>
+                            </div>
+                        </div>
+
+                        <!-- Video 2 -->
+                        <div
+                            class="video-card"
+                            data-cat="music"
+                            data-full-video="https://www.w3schools.com/html/mov_bbb.mp4"
+                        >
+                            <video
+                                src="https://www.w3schools.com/html/mov_bbb.mp4"
+                                autoplay
+                                loop
+                                muted
+                                playsinline
+                            ></video>
+                            <div class="play-icon"></div>
+                            <div class="video-overlay">
+                                <span class="video-tag">Music</span>
+                                <h3 class="video-title">
+                                    Midnight Synthesis MV
+                                </h3>
+                            </div>
+                        </div>
+
+                        <!-- Video 3 -->
+                        <div
+                            class="video-card"
+                            data-cat="documentary"
+                            data-full-video="https://www.w3schools.com/html/mov_bbb.mp4"
+                        >
+                            <video
+                                src="https://www.w3schools.com/html/mov_bbb.mp4"
+                                autoplay
+                                loop
+                                muted
+                                playsinline
+                            ></video>
+                            <div class="play-icon"></div>
+                            <div class="video-overlay">
+                                <span class="video-tag">Documentary</span>
+                                <h3 class="video-title">
+                                    Concrete Jungles Ep. 01
+                                </h3>
+                            </div>
+                        </div>
+
+                        <!-- Video 4 -->
+                        <div
+                            class="video-card"
+                            data-cat="commercial"
+                            data-full-video="https://www.w3schools.com/html/mov_bbb.mp4"
+                        >
+                            <video
+                                src="https://www.w3schools.com/html/mov_bbb.mp4"
+                                autoplay
+                                loop
+                                muted
+                                playsinline
+                            ></video>
+                            <div class="play-icon"></div>
+                            <div class="video-overlay">
+                                <span class="video-tag">Commercial</span>
+                                <h3 class="video-title">
+                                    Automotive Winter Series
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Section -->
+                    <section class="cta-box fade-element">
+                        <h2>License & Commission.</h2>
+                        <p>
+                            Available globally for production, social media, and
+                            other videography work.
+                        </p>
+                        <a href="contact.html" class="cta-btn"
+                            >Work with me >></a
+                        >
+                    </section>
+
+                    <!-- Global Footer -->
+                    <div id="global-footer"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lightbox Modal -->
+        <div class="lightbox" id="lightbox">
+            <div class="lightbox-content">
+                <button class="lb-close" id="lb-close">CLOSE [ESC]</button>
+                <!-- The iframe/video player will be injected here via JS -->
+                <div
+                    id="lb-video-container"
+                    style="width: 100%; height: 100%"
+                ></div>
+            </div>
+        </div>
+
+        <!-- Load Scripts -->
+        <script src="header.js"></script>
+        <script src="footer.js"></script>
+        <script>
+            // 0. HIGH-END SCROLL REVEAL HERO ANIMATION
+            const scrollArea = document.getElementById("scrollArea");
+            const heroBg = document.getElementById("heroBg");
+            const heroContent = document.getElementById("heroContent");
+            const scrollIndicator = document.getElementById("scrollIndicator");
+
+            scrollArea.addEventListener("scroll", () => {
+                let y = scrollArea.scrollTop;
+
+                // Scale image down and fade it out slightly as you scroll down
+                let scale = Math.max(0.95, 1.1 - y * 0.0003);
+                let brightness = Math.max(0.1, 0.5 - y * 0.0005);
+                let blur = Math.min(20, y * 0.02);
+
+                heroBg.style.transform = `scale(${scale})`;
+                heroBg.style.filter = `brightness(${brightness}) contrast(1.1) blur(${blur}px)`;
+
+                // Parallax effect on the text
+                heroContent.style.transform = `translateY(${y * 0.5}px)`;
+                heroContent.style.opacity = Math.max(0, 1 - y * 0.003);
+
+                // Hide scroll indicator quickly
+                scrollIndicator.style.opacity = Math.max(0, 0.7 - y * 0.005);
+            });
+
+            // 1. STAGGERED SCROLL ANIMATIONS FOR GALLERY
+            const observerOptions = {
+                root: document.getElementById("scrollArea"),
+                threshold: 0.05,
+                rootMargin: "0px 0px -50px 0px",
+            };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document
+                .querySelectorAll(".fade-element")
+                .forEach((el) => observer.observe(el));
+            document.querySelectorAll(".video-card").forEach((card, index) => {
+                card.style.transitionDelay = `${(index % 4) * 0.1}s`;
+                observer.observe(card);
+            });
+
+            // 2. TAB FILTERING LOGIC
+            const tabs = document.querySelectorAll(".filter-tab");
+            const items = document.querySelectorAll(".video-card");
+
+            tabs.forEach((tab) => {
+                tab.addEventListener("click", () => {
+                    tabs.forEach((t) => t.classList.remove("active"));
+                    tab.classList.add("active");
+
+                    const filter = tab.dataset.filter;
+
+                    items.forEach((item) => {
+                        item.style.transitionDelay = "0s";
+
+                        if (filter === "all" || item.dataset.cat === filter) {
+                            item.classList.remove("hidden");
+                            void item.offsetWidth; // Force reflow
+                            item.classList.add("is-visible");
+                        } else {
+                            item.classList.remove("is-visible");
+                            setTimeout(() => {
+                                if (!item.classList.contains("is-visible"))
+                                    item.classList.add("hidden");
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // 3. FULLSCREEN VIDEO LIGHTBOX LOGIC
+            const lb = document.getElementById("lightbox");
+            const lbContainer = document.getElementById("lb-video-container");
+
+            function openLightbox(videoUrl) {
+                // Inject a video player with controls. Can be swapped for YouTube/Vimeo iframe logic if preferred.
+                lbContainer.innerHTML = `<video src="${videoUrl}" controls autoplay playsinline style="width: 100%; height: 100%; outline: none;"></video>`;
+                lb.classList.add("open");
+            }
+
+            function closeLightbox() {
+                lb.classList.remove("open");
+                // Clear inner HTML after fade out to stop audio playing
+                setTimeout(() => {
+                    lbContainer.innerHTML = "";
+                }, 300);
+            }
+
+            items.forEach((item) => {
+                item.addEventListener("click", () => {
+                    const fullVideo = item.getAttribute("data-full-video");
+                    openLightbox(fullVideo);
+                });
+            });
+
+            lb.addEventListener("click", (e) => {
+                if (e.target === lb || e.target.id === "lb-close")
+                    closeLightbox();
+            });
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") closeLightbox();
+            });
+        </script>
+
+        <script src="canvas.js"></script>
+    </body>
+</html>

@@ -1,0 +1,110 @@
+document.addEventListener("DOMContentLoaded", () => {
+  let screenArea = document.querySelector(".monitor-screen");
+  if (!screenArea) return; // Fallback
+
+  let headerPlaceholder = document.getElementById("global-header");
+  if (!headerPlaceholder) {
+    headerPlaceholder = document.createElement("div");
+    headerPlaceholder.id = "global-header";
+  }
+  // Ensure header is inside monitor-screen so it stays within the screen boundary
+  // and does not overlap the native scrollbar
+  screenArea.insertBefore(headerPlaceholder, screenArea.firstChild);
+
+  headerPlaceholder.innerHTML = `
+    <style>
+      .menu-icon { width: 30px; height: 20px; position: relative; cursor: pointer; z-index: 10005; pointer-events: auto; }
+      .menu-icon span { display: block; position: absolute; height: 2px; width: 100%; background: var(--text-main); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+      .menu-icon span:nth-child(1) { top: 0; }
+      .menu-icon span:nth-child(2) { top: 9px; }
+      .menu-icon span:nth-child(3) { top: 18px; }
+      .menu-icon.open span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+      .menu-icon.open span:nth-child(2) { opacity: 0; }
+      .menu-icon.open span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+      #global-header { position: absolute; top: 0; left: 0; z-index: 10000; width: 100%; pointer-events: none; }
+
+      .nav-anim { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+      #menuOverlay.open .nav-anim { opacity: 1; transform: translateY(0); }
+    </style>
+    <header style="display: flex; justify-content: flex-end; align-items: center; padding: 25px 35px; pointer-events: none;">
+      <div id="menuToggle" class="menu-icon">
+        <span></span><span></span><span></span>
+      </div>
+    </header>
+
+    <div id="menuOverlay" style="position: fixed; inset: 0; background: rgba(5,5,5,0.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;">
+
+      <div style="width: 100%; max-width: 500px; padding: 20px; display: flex; flex-direction: column; align-items: center;">
+
+        <!-- Services Directory Card -->
+        <nav class="directory-nav nav-anim" style="width: 100%; margin-left: 0; margin-bottom: 40px; box-sizing: border-box; text-align: left;">
+          <div class="dir-header">
+              <span>Services</span>
+              <span>[4]</span>
+          </div>
+          <ul class="dir-list">
+              <li class="dir-item">
+                  <a href="photography.html" class="dir-link">
+                      <span class="dir-arrows">>> ></span>
+                      <span class="dir-name">Photography</span>
+                  </a>
+              </li>
+              <li class="dir-item">
+                  <a href="videography.html" class="dir-link">
+                      <span class="dir-arrows">>> ></span>
+                      <span class="dir-name">Videography</span>
+                  </a>
+              </li>
+              <li class="dir-item">
+                  <a href="websites.html" class="dir-link">
+                      <span class="dir-arrows">>> ></span>
+                      <span class="dir-name">Websites</span>
+                  </a>
+              </li>
+              <li class="dir-item">
+                  <a href="advertising.html" class="dir-link">
+                      <span class="dir-arrows">>> ></span>
+                      <span class="dir-name">Advertising</span>
+                  </a>
+              </li>
+          </ul>
+        </nav>
+
+        <!-- Secondary Navigation -->
+        <div class="nav-anim" style="display: flex; gap: 30px; margin-bottom: 30px; font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; transition-delay: 0.1s;">
+          <a href="index.html" style="color: var(--text-dim); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--text-dim)'">Home</a>
+          <a href="about.html" style="color: var(--text-dim); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--text-dim)'">About</a>
+          <a href="contact.html" style="color: var(--text-dim); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--text-dim)'">Contact</a>
+        </div>
+
+        <!-- Contact Email -->
+        <a href="mailto:contact@dallas.rip" class="nav-anim" style="font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.15em; transition-delay: 0.2s; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; transition: all 0.2s;" onmouseover="this.style.color='var(--text-main)'; this.style.borderColor='rgba(255,255,255,0.5)';" onmouseout="this.style.color='var(--text-dim)'; this.style.borderColor='rgba(255,255,255,0.1)';">contact@dallas.rip</a>
+
+      </div>
+
+    </div>
+  `;
+
+  const menuToggle = document.getElementById("menuToggle");
+  const menuOverlay = document.getElementById("menuOverlay");
+
+  menuToggle.addEventListener("click", () => {
+    menuOverlay.classList.toggle("open");
+    menuToggle.classList.toggle("open");
+    menuOverlay.style.opacity = menuOverlay.classList.contains("open")
+      ? "1"
+      : "0";
+    menuOverlay.style.pointerEvents = menuOverlay.classList.contains("open")
+      ? "auto"
+      : "none";
+  });
+
+  menuOverlay.addEventListener("click", (e) => {
+    if (e.target.tagName === "A") {
+      menuOverlay.classList.remove("open");
+      menuToggle.classList.remove("open");
+      menuOverlay.style.opacity = "0";
+      menuOverlay.style.pointerEvents = "none";
+    }
+  });
+});

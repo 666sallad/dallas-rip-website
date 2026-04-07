@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>web + marketing — dallas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#0a0a0a;
+  --bg2:#111;
+  --fg:#e8e6e1;
+  --fg2:#888580;
+  --fg3:#444240;
+  --accent:#c8ff00;
+  --line:rgba(232,230,225,0.08);
+  --mono:'Share Tech Mono',monospace;
+  --sans:'Syne',sans-serif;
+}
+
+html{background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+
+body{
+  font-family:var(--mono);
+  min-height:100vh;
+  padding:36px 40px;
+  max-width:960px;
+  margin:0 auto;
+  position:relative;
+}
+
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 4px);
+  pointer-events:none;
+  z-index:0;
+}
+
+*{position:relative;z-index:1}
+
+/* NAV */
+nav.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:100px;
+}
+.back{font-size:10px;color:var(--fg3);letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:color 0.15s}
+.back:hover{color:var(--accent)}
+.wordmark{font-family:var(--sans);font-size:13px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:var(--fg);text-decoration:none}
+
+/* HEADER */
+.page-header{margin-bottom:100px}
+.eyebrow{font-size:10px;color:var(--fg3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';display:inline-block;width:20px;height:1px;background:var(--fg3)}
+.page-title{
+  font-family:var(--sans);
+  font-size:clamp(32px,6vw,64px);
+  font-weight:800;
+  letter-spacing:-0.02em;
+  color:var(--fg);
+  line-height:1;
+  margin-bottom:24px;
+}
+.page-desc{font-size:12px;color:var(--fg2);line-height:1.7;max-width:400px}
+
+/* SECTION LABEL */
+.section-label{
+  font-size:10px;
+  color:var(--fg3);
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  margin-bottom:24px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.section-label::before{content:'//';color:var(--fg3)}
+
+/* SERVICES */
+.services{margin-bottom:100px}
+.services-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  border-top:1px solid var(--line);
+}
+.service-cell{
+  padding:20px 0;
+  border-bottom:1px solid var(--line);
+}
+.service-cell:nth-child(odd){padding-right:32px}
+.service-cell:nth-child(even){padding-left:32px;border-left:1px solid var(--line)}
+.service-name{font-family:var(--sans);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--fg2);margin-bottom:4px}
+.service-desc{font-size:11px;color:var(--fg3);line-height:1.5}
+
+/* WORK */
+.work{margin-bottom:100px}
+.work-list{border-top:1px solid var(--line)}
+.work-item{
+  display:grid;
+  grid-template-columns:auto 1fr auto auto;
+  align-items:center;
+  gap:20px;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+  text-decoration:none;
+  color:inherit;
+  transition:padding-left 0.15s;
+}
+.work-item:hover{padding-left:8px}
+.work-item:hover .work-idx{color:var(--accent)}
+.work-item:hover .work-name{color:var(--fg)}
+
+.work-idx{font-size:10px;color:var(--fg3);letter-spacing:0.05em;transition:color 0.15s;min-width:20px}
+.work-name{font-family:var(--sans);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;color:var(--fg2);transition:color 0.15s}
+.work-type{font-size:10px;color:var(--fg3);letter-spacing:0.08em;justify-self:end}
+.work-arrow{font-size:12px;color:var(--fg3)}
+
+/* PLATFORMS */
+.platforms{margin-bottom:100px}
+.platform-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  border-top:1px solid var(--line);
+  padding-top:24px;
+}
+.platform-tag{
+  font-size:10px;
+  color:var(--fg3);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  border:1px solid var(--line);
+  padding:6px 12px;
+  transition:all 0.15s;
+}
+.platform-tag:hover{border-color:rgba(200,255,0,0.3);color:var(--accent)}
+
+/* CONTACT */
+.contact{margin-bottom:80px}
+.contact-inner{
+  border-top:1px solid var(--line);
+  padding-top:40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:40px;
+}
+.contact-label{
+  font-family:var(--sans);
+  font-size:clamp(20px,4vw,36px);
+  font-weight:800;
+  letter-spacing:-0.01em;
+  color:var(--fg2);
+  max-width:260px;
+  line-height:1.1;
+}
+.contact-links{display:flex;flex-direction:column;gap:12px;padding-top:4px}
+.contact-link{
+  display:grid;
+  grid-template-columns:52px 1fr;
+  gap:12px;
+  align-items:baseline;
+  text-decoration:none;
+  color:var(--fg2);
+  font-size:12px;
+  transition:color 0.15s;
+}
+.contact-link:hover{color:var(--accent)}
+.contact-link-lbl{font-size:10px;color:var(--fg3);letter-spacing:0.1em;text-transform:uppercase}
+
+/* FOOTER */
+footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-top:32px;
+  border-top:1px solid var(--line);
+}
+.footer-l,.footer-r{font-size:10px;color:var(--fg3);letter-spacing:0.1em;text-transform:uppercase}
+
+.cursor-blink{display:inline-block;width:6px;height:10px;background:var(--accent);vertical-align:middle;margin-left:3px;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+@media(max-width:640px){
+  body{padding:28px 20px}
+  nav.top{margin-bottom:72px}
+  .page-header{margin-bottom:72px}
+  .services-grid{grid-template-columns:1fr}
+  .service-cell:nth-child(even){padding-left:0;border-left:none}
+  .work-item{grid-template-columns:auto 1fr auto}
+  .work-type{display:none}
+  .contact-inner{flex-direction:column;gap:28px}
+  footer{flex-direction:column;align-items:flex-start;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a class="back" href="/">&larr; home</a>
+  <a class="wordmark" href="/">DALLAS</a>
+</nav>
+
+<div class="page-header">
+  <p class="eyebrow">web + marketing</p>
+  <h1 class="page-title">DESIGN.<br>BUILD.<br>GROW.</h1>
+  <p class="page-desc">custom websites and performance marketing for small businesses and brands. based in brisbane, clients globally.</p>
+</div>
+
+<section class="services">
+  <p class="section-label">services</p>
+  <div class="services-grid">
+    <div class="service-cell">
+      <p class="service-name">Web Design</p>
+      <p class="service-desc">custom, built for your goals</p>
+    </div>
+    <div class="service-cell">
+      <p class="service-name">Development</p>
+      <p class="service-desc">webflow, wordpress, framer, shopify</p>
+    </div>
+    <div class="service-cell">
+      <p class="service-name">Paid Media</p>
+      <p class="service-desc">meta + google, strategy to management</p>
+    </div>
+    <div class="service-cell">
+      <p class="service-name">SEO</p>
+      <p class="service-desc">structure, technical, long-term</p>
+    </div>
+    <div class="service-cell">
+      <p class="service-name">Photo + Video</p>
+      <p class="service-desc">production for web, social, campaigns</p>
+    </div>
+    <div class="service-cell">
+      <p class="service-name">Strategy</p>
+      <p class="service-desc">figure out what actually makes sense</p>
+    </div>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <p class="section-label">selected work</p>
+  <div class="work-list">
+    <a class="work-item" href="https://www.burrowcafe.com.au/" target="_blank" rel="noopener">
+      <span class="work-idx">01</span>
+      <span class="work-name">Burrow</span>
+      <span class="work-type">hospitality</span>
+      <span class="work-arrow">&rarr;</span>
+    </a>
+    <a class="work-item" href="https://www.strivepp.com.au" target="_blank" rel="noopener">
+      <span class="work-idx">02</span>
+      <span class="work-name">Strive</span>
+      <span class="work-type">property mgmt</span>
+      <span class="work-arrow">&rarr;</span>
+    </a>
+    <a class="work-item" href="https://queensford.edu.au" target="_blank" rel="noopener">
+      <span class="work-idx">03</span>
+      <span class="work-name">Queensford</span>
+      <span class="work-type">education</span>
+      <span class="work-arrow">&rarr;</span>
+    </a>
+    <a class="work-item" href="https://www.wealthcore.au" target="_blank" rel="noopener">
+      <span class="work-idx">04</span>
+      <span class="work-name">Wealthcore</span>
+      <span class="work-type">investment</span>
+      <span class="work-arrow">&rarr;</span>
+    </a>
+  </div>
+</section>
+
+<section class="platforms">
+  <p class="section-label">platforms</p>
+  <div class="platform-list">
+    <span class="platform-tag">Webflow</span>
+    <span class="platform-tag">WordPress</span>
+    <span class="platform-tag">Framer</span>
+    <span class="platform-tag">Shopify</span>
+    <span class="platform-tag">Squarespace</span>
+    <span class="platform-tag">Wix</span>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <h2 class="contact-label">got a project?</h2>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:hello@dallas.rip">
+        <span class="contact-link-lbl">email</span>
+        hello@dallas.rip
+      </a>
+      <a class="contact-link" href="https://instagram.com/dallasmarketing" target="_blank" rel="noopener">
+        <span class="contact-link-lbl">instagram</span>
+        @dallasmarketing
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-l">&copy; dallas vonhoff</span>
+  <span class="footer-r">dallas.rip<span class="cursor-blink"></span></span>
+</footer>
+
+</body>
+</html>
