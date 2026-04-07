@@ -93,8 +93,11 @@
 
         <!-- Lightbox Modal -->
         <div class="lightbox" id="lightbox">
+            <div class="lightbox-container">
+                <div class="lightbox-media" id="lb-media"></div>
+                <div class="lightbox-info" id="lb-info"></div>
+            </div>
             <span class="lb-close" id="lb-close">CLOSE [ESC]</span>
-            <img id="lb-img" src="" alt="Expanded Image" />
         </div>
 
         <!-- Load Global Footer and Scripts -->
@@ -184,13 +187,10 @@
                 }, observerOptions);
 
                 document
-                    .querySelectorAll(".fade-element")
-                    .forEach((el) => observer.observe(el));
-                document
-                    .querySelectorAll(".gallery-img")
-                    .forEach((img, index) => {
-                        img.style.transitionDelay = `${(index % 6) * 0.1}s`;
-                        observer.observe(img);
+                    .querySelectorAll(".fade-element, .gallery-img")
+                    .forEach((el, index) => {
+                        el.style.transitionDelay = `${(index % 6) * 0.1}s`;
+                        observer.observe(el);
                     });
 
                 const tabs = document.querySelectorAll(".filter-tab");
@@ -203,29 +203,26 @@
                         const filter = tab.dataset.filter;
                         items.forEach((item) => {
                             item.style.transitionDelay = "0s";
+                            const categories = item.dataset.cat.split(" ");
                             if (
                                 filter === "all" ||
-                                item.dataset.cat === filter
+                                categories.includes(filter)
                             ) {
                                 item.classList.remove("hidden");
-                                void item.offsetWidth;
-                                item.classList.add("is-visible");
                             } else {
-                                item.classList.remove("is-visible");
-                                setTimeout(() => {
-                                    if (!item.classList.contains("is-visible"))
-                                        item.classList.add("hidden");
-                                }, 300);
+                                item.classList.add("hidden");
                             }
                         });
                     });
                 });
 
                 const lb = document.getElementById("lightbox");
-                const lbImg = document.getElementById("lb-img");
+                const lbMedia = document.getElementById("lb-media");
+                const lbInfo = document.getElementById("lb-info");
 
-                function openLightbox(imgSrc) {
-                    lbImg.src = imgSrc;
+                function openLightbox(data) {
+                    lbMedia.innerHTML = `<img src="${data.image}" alt="${data.title}" />`;
+                    lbInfo.innerHTML = `<h3>${data.title}</h3><p>${data.description}</p>`;
                     lb.classList.add("open");
                 }
 
@@ -234,25 +231,12 @@
                 }
 
                 items.forEach((item) => {
-                    item.addEventListener("click", (e) => {
-                        const overlay = item.querySelector(".photo-overlay");
-                        const isInfoVisible =
-                            overlay.classList.contains("info-visible");
-
-                        if (isInfoVisible) {
-                            openLightbox(item.querySelector("img").src);
-                        } else {
-                            e.preventDefault();
-                            e.stopPropagation();
-
-                            document
-                                .querySelectorAll(".photo-overlay.info-visible")
-                                .forEach((o) => {
-                                    o.classList.remove("info-visible");
-                                });
-
-                            overlay.classList.add("info-visible");
-                        }
+                    item.addEventListener("click", () => {
+                        openLightbox({
+                            image: item.dataset.image,
+                            title: item.dataset.title,
+                            description: item.dataset.description,
+                        });
                     });
                 });
 
@@ -260,19 +244,8 @@
                     if (e.target === lb || e.target.id === "lb-close")
                         closeLightbox();
                 });
-
                 document.addEventListener("keydown", (e) => {
                     if (e.key === "Escape") closeLightbox();
-                });
-
-                document.addEventListener("click", (e) => {
-                    if (!e.target.closest(".gallery-img")) {
-                        document
-                            .querySelectorAll(".photo-overlay.info-visible")
-                            .forEach((o) => {
-                                o.classList.remove("info-visible");
-                            });
-                    }
                 });
             }
 

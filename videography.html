@@ -73,13 +73,11 @@
 
         <!-- Lightbox Modal -->
         <div class="lightbox" id="lightbox">
-            <div class="lightbox-content">
-                <button class="lb-close" id="lb-close">CLOSE [ESC]</button>
-                <div
-                    id="lb-video-container"
-                    style="width: 100%; height: 100%"
-                ></div>
+            <div class="lightbox-container">
+                <div class="lightbox-media" id="lb-media"></div>
+                <div class="lightbox-info" id="lb-info"></div>
             </div>
+            <span class="lb-close" id="lb-close">CLOSE [ESC]</span>
         </div>
 
         <!-- Load Scripts -->
@@ -106,21 +104,21 @@
                     videoItems.forEach((item) => {
                         const videoCard = document.createElement("div");
                         videoCard.className = "video-card";
-                        videoCard.dataset.fullVideo = item.video_url;
+                        videoCard.dataset.videoUrl = item.video_url;
+                        videoCard.dataset.title = item.title;
+                        videoCard.dataset.description = item.description || "";
 
                         // Create inner HTML for the card
                         videoCard.innerHTML = `
-                            <video src="${item.video_url}" autoplay loop muted playsinline loading="lazy"></video>
+                            <video src="${item.thumbnail}" autoplay loop muted playsinline loading="lazy"></video>
                             <div class="play-icon"></div>
                             <div class="video-overlay">
                                 <h3 class="video-title">${item.title}</h3>
-                                <p class="video-description">${item.description || ""}</p>
                             </div>
                         `;
                         videoGrid.appendChild(videoCard);
                     });
 
-                    // Re-initialize all page interactions on the new dynamic content
                     setupPageInteractions();
                 } catch (error) {
                     console.error("Failed to load videography:", error);
@@ -129,21 +127,22 @@
                 }
             }
 
-            // 2. SETUP FOR ALL INTERACTIONS (Animations, Lightbox)
             function setupPageInteractions() {
-                const observerOptions = {
-                    root: document.getElementById("scrollArea"),
-                    threshold: 0.1,
-                    rootMargin: "0px 0px -50px 0px",
-                };
-                const observer = new IntersectionObserver((entries, obs) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add("is-visible");
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, observerOptions);
+                const observer = new IntersectionObserver(
+                    (entries, obs) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add("is-visible");
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    {
+                        root: document.getElementById("scrollArea"),
+                        threshold: 0.1,
+                        rootMargin: "0px 0px -50px 0px",
+                    },
+                );
 
                 document
                     .querySelectorAll(".fade-element, .video-card")
@@ -154,72 +153,48 @@
 
                 const items = document.querySelectorAll(".video-card");
                 const lb = document.getElementById("lightbox");
-                const lbContainer =
-                    document.getElementById("lb-video-container");
+                const lbMedia = document.getElementById("lb-media");
+                const lbInfo = document.getElementById("lb-info");
 
-                function openLightbox(videoUrl) {
+                function openLightbox(data) {
+                    const videoUrl = data.videoUrl;
                     if (videoUrl.includes("vimeo")) {
                         const videoId = videoUrl.split("/").pop();
-                        lbContainer.innerHTML = `<iframe src="https://player.vimeo.com/video/${videoId}?autoplay=1" style="width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+                        lbMedia.innerHTML = `<iframe src="https://player.vimeo.com/video/${videoId}?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
                     } else if (
                         videoUrl.includes("youtube.com") ||
                         videoUrl.includes("youtu.be")
                     ) {
                         const videoId = new URL(videoUrl).searchParams.get("v");
-                        lbContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" style="width:100%;height:100%;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                        lbMedia.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
                     } else {
-                        lbContainer.innerHTML = `<video src="${videoUrl}" controls autoplay playsinline style="width: 100%; height: 100%; outline: none;"></video>`;
+                        lbMedia.innerHTML = `<video src="${videoUrl}" controls autoplay playsinline></video>`;
                     }
+
+                    lbInfo.innerHTML = `<h3>${data.title}</h3><p>${data.description}</p>`;
                     lb.classList.add("open");
                 }
 
                 function closeLightbox() {
                     lb.classList.remove("open");
                     setTimeout(() => {
-                        lbContainer.innerHTML = "";
+                        lbMedia.innerHTML = "";
+                        lbInfo.innerHTML = "";
                     }, 300);
                 }
 
                 items.forEach((item) => {
-                    item.addEventListener("click", (e) => {
-                        const overlay = item.querySelector(".video-overlay");
-                        const isInfoVisible =
-                            overlay.classList.contains("info-visible");
-
-                        if (isInfoVisible) {
-                            openLightbox(item.dataset.fullVideo);
-                        } else {
-                            e.preventDefault();
-                            e.stopPropagation();
-
-                            document
-                                .querySelectorAll(".video-overlay.info-visible")
-                                .forEach((o) => {
-                                    o.classList.remove("info-visible");
-                                });
-
-                            overlay.classList.add("info-visible");
-                        }
-                    });
+                    item.addEventListener("click", () =>
+                        openLightbox(item.dataset),
+                    );
                 });
 
                 lb.addEventListener("click", (e) => {
                     if (e.target === lb || e.target.id === "lb-close")
                         closeLightbox();
                 });
-
                 document.addEventListener("keydown", (e) => {
                     if (e.key === "Escape") closeLightbox();
-                });
-
-                document.addEventListener("click", (e) => {
-                    if (!e.target.closest(".video-card")) {
-                        document
-                            .querySelectorAll(".video-overlay.info-visible")
-                            .forEach((o) => {
-                                o.classList.remove("info-visible");
-                            });
-                    }
                 });
             }
 
