@@ -1,0 +1,12 @@
+{
+  "name": "dallas-rip-website-builder",
+  "version": "1.0.0",
+  "description": "Build script to generate content JSON from CMS files.",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3"
+  }
+}
