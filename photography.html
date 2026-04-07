@@ -223,19 +223,56 @@
 
                 const lb = document.getElementById("lightbox");
                 const lbImg = document.getElementById("lb-img");
+
+                function openLightbox(imgSrc) {
+                    lbImg.src = imgSrc;
+                    lb.classList.add("open");
+                }
+
+                function closeLightbox() {
+                    lb.classList.remove("open");
+                }
+
                 items.forEach((item) => {
-                    item.addEventListener("click", () => {
-                        lbImg.src = item.querySelector("img").src;
-                        lb.classList.add("open");
+                    item.addEventListener("click", (e) => {
+                        const overlay = item.querySelector(".photo-overlay");
+                        const isInfoVisible =
+                            overlay.classList.contains("info-visible");
+
+                        if (isInfoVisible) {
+                            openLightbox(item.querySelector("img").src);
+                        } else {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            document
+                                .querySelectorAll(".photo-overlay.info-visible")
+                                .forEach((o) => {
+                                    o.classList.remove("info-visible");
+                                });
+
+                            overlay.classList.add("info-visible");
+                        }
                     });
                 });
 
                 lb.addEventListener("click", (e) => {
                     if (e.target === lb || e.target.id === "lb-close")
-                        lb.classList.remove("open");
+                        closeLightbox();
                 });
+
                 document.addEventListener("keydown", (e) => {
-                    if (e.key === "Escape") lb.classList.remove("open");
+                    if (e.key === "Escape") closeLightbox();
+                });
+
+                document.addEventListener("click", (e) => {
+                    if (!e.target.closest(".gallery-img")) {
+                        document
+                            .querySelectorAll(".photo-overlay.info-visible")
+                            .forEach((o) => {
+                                o.classList.remove("info-visible");
+                            });
+                    }
                 });
             }
 

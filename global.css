@@ -549,7 +549,8 @@ a {
     height: 100%;
 }
 
-.gallery-img:hover .photo-overlay {
+.gallery-img:hover .photo-overlay,
+.photo-overlay.info-visible {
     opacity: 1;
 }
 
@@ -628,7 +629,8 @@ a {
     opacity: 0;
     transition: opacity 0.3s;
 }
-.video-card:hover .video-overlay {
+.video-card:hover .video-overlay,
+.video-overlay.info-visible {
     opacity: 1;
 }
 .video-title {

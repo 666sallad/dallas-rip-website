@@ -181,17 +181,45 @@
                 }
 
                 items.forEach((item) => {
-                    item.addEventListener("click", () =>
-                        openLightbox(item.dataset.fullVideo),
-                    );
+                    item.addEventListener("click", (e) => {
+                        const overlay = item.querySelector(".video-overlay");
+                        const isInfoVisible =
+                            overlay.classList.contains("info-visible");
+
+                        if (isInfoVisible) {
+                            openLightbox(item.dataset.fullVideo);
+                        } else {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            document
+                                .querySelectorAll(".video-overlay.info-visible")
+                                .forEach((o) => {
+                                    o.classList.remove("info-visible");
+                                });
+
+                            overlay.classList.add("info-visible");
+                        }
+                    });
                 });
 
                 lb.addEventListener("click", (e) => {
                     if (e.target === lb || e.target.id === "lb-close")
                         closeLightbox();
                 });
+
                 document.addEventListener("keydown", (e) => {
                     if (e.key === "Escape") closeLightbox();
+                });
+
+                document.addEventListener("click", (e) => {
+                    if (!e.target.closest(".video-card")) {
+                        document
+                            .querySelectorAll(".video-overlay.info-visible")
+                            .forEach((o) => {
+                                o.classList.remove("info-visible");
+                            });
+                    }
                 });
             }
 
