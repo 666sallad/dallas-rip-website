@@ -5,12 +5,8 @@ backend:
   name: git-gateway
   branch: main
 
-# This is the required media library setting.
-# It tells the CMS to save uploaded media directly to the GitHub repository.
-media_library:
-  name: git
-
-# This is where uploaded media will be saved in your repository.
+# Where uploaded media will be saved in your repository.
+# This is all that's needed for uploads with git-gateway.
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
@@ -18,7 +14,7 @@ public_folder: "/assets/uploads"
 collections:
   - name: "photography"
     label: "Photography"
-    folder: "_photography" # Creates a new folder for photo entries
+    folder: "_photography"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
@@ -33,7 +29,7 @@ collections:
 
   - name: "videography"
     label: "Videography"
-    folder: "_videography" # Creates a new folder for video entries
+    folder: "_videography"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
