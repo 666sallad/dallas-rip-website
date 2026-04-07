@@ -25,6 +25,7 @@ collections:
           name: "categories",
           widget: "list",
           hint: "Add one or more categories like 'Commercial', 'Fashion', 'Portrait'",
+          field: { label: "Category", name: "category", widget: "string" },
         }
 
   - name: "videography"
@@ -41,4 +42,5 @@ collections:
           name: "categories",
           widget: "list",
           hint: "Add one or more categories like 'Commercial', 'Music Video', 'Narrative'",
+          field: { label: "Category", name: "category", widget: "string" },
         }
