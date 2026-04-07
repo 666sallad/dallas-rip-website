@@ -146,7 +146,15 @@
                         img.alt = item.title;
                         img.loading = "lazy";
 
+                        const overlay = document.createElement("div");
+                        overlay.className = "photo-overlay";
+                        overlay.innerHTML = `
+                            <h3 class="title">${item.title}</h3>
+                            <p class="description">${item.description || ""}</p>
+                        `;
+
                         galleryImg.appendChild(img);
+                        galleryImg.appendChild(overlay);
                         gallery.appendChild(galleryImg);
                     });
 

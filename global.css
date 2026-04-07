@@ -532,6 +532,38 @@ a {
     display: none !important;
 }
 
+.photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.gallery-img:hover .photo-overlay {
+    opacity: 1;
+}
+
+.photo-overlay .title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.photo-overlay .description {
+    font-size: 14px;
+    margin: 5px 0 0 0;
+}
+
 /* Video Gallery Grid */
 .video-grid {
     display: grid;

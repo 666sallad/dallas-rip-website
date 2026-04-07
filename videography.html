@@ -46,23 +46,6 @@
                     <!-- Gallery Header & Filters -->
                     <div class="gallery-header fade-element">
                         <h2 class="section-header">My Work</h2>
-                        <div class="filter-tabs">
-                            <button class="filter-tab active" data-filter="all">
-                                All
-                            </button>
-                            <button class="filter-tab" data-filter="commercial">
-                                Commercial
-                            </button>
-                            <button
-                                class="filter-tab"
-                                data-filter="documentary"
-                            >
-                                Documentary
-                            </button>
-                            <button class="filter-tab" data-filter="music">
-                                Music
-                            </button>
-                        </div>
                     </div>
 
                     <!-- Video Grid (Content is dynamically injected) -->
@@ -123,12 +106,6 @@
                     videoItems.forEach((item) => {
                         const videoCard = document.createElement("div");
                         videoCard.className = "video-card";
-
-                        // Set data attributes for filtering and lightbox
-                        if (item.categories && item.categories.length > 0) {
-                            videoCard.dataset.cat =
-                                item.categories[0].toLowerCase();
-                        }
                         videoCard.dataset.fullVideo = item.video_url;
 
                         // Create inner HTML for the card
@@ -136,8 +113,8 @@
                             <video src="${item.video_url}" autoplay loop muted playsinline loading="lazy"></video>
                             <div class="play-icon"></div>
                             <div class="video-overlay">
-                                <span class="video-tag">${item.categories ? item.categories.join(", ") : ""}</span>
                                 <h3 class="video-title">${item.title}</h3>
+                                <p class="video-description">${item.description || ""}</p>
                             </div>
                         `;
                         videoGrid.appendChild(videoCard);
@@ -152,7 +129,7 @@
                 }
             }
 
-            // 2. SETUP FOR ALL INTERACTIONS (Filters, Animations, Lightbox)
+            // 2. SETUP FOR ALL INTERACTIONS (Animations, Lightbox)
             function setupPageInteractions() {
                 const observerOptions = {
                     root: document.getElementById("scrollArea"),
@@ -175,34 +152,7 @@
                         observer.observe(el);
                     });
 
-                const tabs = document.querySelectorAll(".filter-tab");
                 const items = document.querySelectorAll(".video-card");
-
-                tabs.forEach((tab) => {
-                    tab.addEventListener("click", () => {
-                        tabs.forEach((t) => t.classList.remove("active"));
-                        tab.classList.add("active");
-                        const filter = tab.dataset.filter;
-                        items.forEach((item) => {
-                            item.style.transitionDelay = "0s";
-                            if (
-                                filter === "all" ||
-                                item.dataset.cat === filter
-                            ) {
-                                item.classList.remove("hidden");
-                                void item.offsetWidth;
-                                item.classList.add("is-visible");
-                            } else {
-                                item.classList.remove("is-visible");
-                                setTimeout(() => {
-                                    if (!item.classList.contains("is-visible"))
-                                        item.classList.add("hidden");
-                                }, 300);
-                            }
-                        });
-                    });
-                });
-
                 const lb = document.getElementById("lightbox");
                 const lbContainer =
                     document.getElementById("lb-video-container");
