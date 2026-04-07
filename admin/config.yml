@@ -23,9 +23,10 @@ collections:
       - {
           label: "Categories",
           name: "categories",
-          widget: "list",
-          hint: "Add one or more categories like 'Commercial', 'Fashion', 'Portrait'",
-          field: { label: "Category", name: "category", widget: "string" },
+          widget: "select",
+          multiple: true,
+          options: ["Cities", "Nature", "People", "Commercial Work"],
+          hint: "Select one or more categories that match the website filters",
         }
 
   - name: "videography"
@@ -40,7 +41,8 @@ collections:
       - {
           label: "Categories",
           name: "categories",
-          widget: "list",
-          hint: "Add one or more categories like 'Commercial', 'Music Video', 'Narrative'",
-          field: { label: "Category", name: "category", widget: "string" },
+          widget: "select",
+          multiple: true,
+          options: ["Commercial", "Documentary", "Music"],
+          hint: "Select one or more categories that match the website filters",
         }
