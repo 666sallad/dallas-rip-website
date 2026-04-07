@@ -1,0 +1,48 @@
+# Decap CMS Configuration for dallas.rip
+
+# The backend connects to your GitHub repository.
+backend:
+  name: git-gateway
+  branch: main
+
+# This is the required media library setting.
+# It tells the CMS to save uploaded media directly to the GitHub repository.
+media_library:
+  name: git
+
+# This is where uploaded media will be saved in your repository.
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+# These are the content types you can edit in the CMS.
+collections:
+  - name: "photography"
+    label: "Photography"
+    folder: "_photography" # Creates a new folder for photo entries
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Image", name: "image", widget: "image" }
+      - {
+          label: "Category",
+          name: "category",
+          widget: "string",
+          hint: "e.g., Commercial, Fashion, Portrait",
+        }
+
+  - name: "videography"
+    label: "Videography"
+    folder: "_videography" # Creates a new folder for video entries
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Vimeo or YouTube URL", name: "video_url", widget: "string" }
+      - { label: "Thumbnail Image", name: "thumbnail", widget: "image" }
+      - {
+          label: "Category",
+          name: "category",
+          widget: "string",
+          hint: "e.g., Commercial, Music Video, Narrative",
+        }
