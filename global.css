@@ -1182,6 +1182,79 @@ textarea.form-control {
     }
 }
 
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.global-footer {
+    border-top: 1px solid var(--glass-border);
+    padding: 60px 5vw;
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.footer-nav-group {
+    display: flex;
+    gap: 80px;
+    flex-wrap: wrap;
+}
+
+.footer-nav-col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-nav-col .label {
+    color: var(--text-dim);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.footer-nav-col a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.footer-contact-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    text-align: right;
+}
+
+.footer-contact-group .email {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-contact-group .location {
+    color: var(--text-dim);
+    font-size: 13px;
+}
+
+@media (max-width: 768px) {
+    .global-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 50px;
+    }
+    .footer-contact-group {
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
 /* Glitch Hover Effect */
 a,
 button {
