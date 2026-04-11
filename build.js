@@ -101,8 +101,11 @@ function generateContentJson(directory, outputFileName) {
 generateContentJson("_photography", "_photography.json");
 generateContentJson("_videography", "_videography.json");
 
-// 5. Convert images to AVIF and copy all other assets
-// Source JPGs/PNGs in assets/ are preserved; only AVIF ends up in dist/.
+// 5. Copy assets to dist, serving pre-converted AVIFs where available.
+// If a .avif already exists alongside the source image (committed to git after
+// running `npm run optimize`), it is copied directly — no conversion needed.
+// If only a .jpg/.png exists (e.g. a brand-new CMS upload not yet optimized),
+// it is converted on the fly as a fallback so nothing is ever missing.
 async function copyAssetsWithAvif(srcDir, destDir) {
   fs.ensureDirSync(destDir);
   const entries = fs.readdirSync(srcDir, { withFileTypes: true });
@@ -113,30 +116,46 @@ async function copyAssetsWithAvif(srcDir, destDir) {
 
     if (entry.isDirectory()) {
       tasks.push(copyAssetsWithAvif(srcPath, path.join(destDir, entry.name)));
-    } else {
-      const ext = path.extname(entry.name).toLowerCase();
-      if (IMAGE_EXTS.has(ext)) {
-        const destName = entry.name.replace(/\.(jpg|jpeg|png)$/i, ".avif");
-        const destPath = path.join(destDir, destName);
-        tasks.push(
-          sharp(srcPath)
-            .avif({ quality: 75 })
-            .toFile(destPath)
-            .then(() => console.log(`  ${entry.name} → ${destName}`))
-            .catch((err) =>
-              console.error(`  Failed to convert ${entry.name}:`, err.message),
-            ),
-        );
-      } else {
-        fs.copySync(srcPath, path.join(destDir, entry.name));
-      }
+      continue;
     }
+
+    const ext = path.extname(entry.name).toLowerCase();
+
+    // Skip source images that already have a pre-converted .avif sibling —
+    // the .avif copy below will handle them.
+    if (IMAGE_EXTS.has(ext)) {
+      const avifSibling = srcPath.replace(/\.(jpg|jpeg|png)$/i, ".avif");
+      if (fs.existsSync(avifSibling)) continue;
+
+      // No pre-converted AVIF (new CMS image) — convert on the fly.
+      const destName = entry.name.replace(/\.(jpg|jpeg|png)$/i, ".avif");
+      const destPath = path.join(destDir, destName);
+      tasks.push(
+        sharp(srcPath)
+          .avif({ quality: 75 })
+          .toFile(destPath)
+          .then(() => console.log(`  Converted (new): ${entry.name} → ${destName}`))
+          .catch((err) =>
+            console.error(`  Failed to convert ${entry.name}:`, err.message),
+          ),
+      );
+      continue;
+    }
+
+    // For .avif files: copy straight to dist.
+    if (ext === ".avif") {
+      fs.copySync(srcPath, path.join(destDir, entry.name));
+      continue;
+    }
+
+    // All other files (videos, etc.): copy as-is.
+    fs.copySync(srcPath, path.join(destDir, entry.name));
   }
 
   await Promise.all(tasks);
 }
 
-console.log("\nConverting images to AVIF (quality 75)...");
+console.log("\nCopying assets...");
 copyAssetsWithAvif(
   path.join(__dirname, "assets"),
   path.join(DIST_DIR, "assets"),

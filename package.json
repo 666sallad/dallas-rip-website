@@ -5,7 +5,8 @@
   "main": "build.js",
   "scripts": {
     "build": "node build.js",
-    "start": "http-server"
+    "optimize": "node optimize.js",
+    "start": "http-server dist/"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
