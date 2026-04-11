@@ -1,0 +1,396 @@
+/* ============================================================
+   dallas.rip — Decap CMS Custom Theme
+   Matches the retro-futuristic monitor aesthetic of the site.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap');
+
+/* ---- Variables ---- */
+:root {
+    --cms-bg:        #050505;
+    --cms-bg-2:      #0d0d0d;
+    --cms-bg-3:      #141414;
+    --cms-border:    rgba(255, 255, 255, 0.1);
+    --cms-border-hi: rgba(255, 255, 255, 0.3);
+    --cms-text:      #ffffff;
+    --cms-text-dim:  #959595;
+    --cms-accent:    #10b981;
+    --cms-mono:      'Share Tech Mono', monospace;
+    --cms-sans:      'Syne', sans-serif;
+}
+
+/* ---- Page shell ---- */
+html, body {
+    background-color: var(--cms-bg) !important;
+    color: var(--cms-text) !important;
+    font-family: var(--cms-sans) !important;
+}
+
+/* ---- App root ---- */
+#nc-root,
+#nc-root > div {
+    background: var(--cms-bg) !important;
+    color: var(--cms-text) !important;
+    font-family: var(--cms-sans) !important;
+}
+
+/* ---- Top header bar ---- */
+header,
+[class*="AppHeader"],
+[class*="Toolbar"],
+[class*="NavBar"] {
+    background: var(--cms-bg-2) !important;
+    border-bottom: 1px solid var(--cms-border) !important;
+    box-shadow: none !important;
+}
+
+/* Site name / logo text in header */
+[class*="AppHeader"] a,
+[class*="AppHeader"] span,
+header a, header span {
+    font-family: var(--cms-mono) !important;
+    color: var(--cms-text) !important;
+}
+
+/* ---- Sidebar ---- */
+aside,
+nav,
+[class*="Sidebar"],
+[class*="sidebar"],
+[class*="NavList"] {
+    background: var(--cms-bg-2) !important;
+    border-right: 1px solid var(--cms-border) !important;
+}
+
+/* Sidebar nav items */
+[class*="Sidebar"] a,
+[class*="NavList"] a,
+aside a, nav a {
+    font-family: var(--cms-mono) !important;
+    font-size: 11px !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    color: var(--cms-text-dim) !important;
+    transition: color 0.2s !important;
+}
+
+[class*="Sidebar"] a:hover,
+[class*="NavList"] a:hover,
+aside a:hover {
+    color: var(--cms-text) !important;
+    background: rgba(255,255,255,0.04) !important;
+}
+
+/* Active nav item */
+[class*="Sidebar"] [class*="active"],
+[class*="NavList"] [class*="active"],
+[class*="activeLink"],
+aside [class*="active"] {
+    color: var(--cms-text) !important;
+    border-left: 2px solid var(--cms-accent) !important;
+    background: rgba(16, 185, 129, 0.06) !important;
+}
+
+/* ---- Main content area ---- */
+main,
+section,
+[class*="MainContainer"],
+[class*="PageContainer"],
+[class*="Container"] {
+    background: var(--cms-bg) !important;
+    color: var(--cms-text) !important;
+}
+
+/* ---- Collection / entry list ---- */
+[class*="CollectionView"],
+[class*="EntryListing"],
+[class*="EntriesCollection"],
+[class*="GridCard"],
+[class*="EntryCard"] {
+    background: var(--cms-bg-2) !important;
+    border: 1px solid var(--cms-border) !important;
+    color: var(--cms-text) !important;
+}
+
+[class*="GridCard"]:hover,
+[class*="EntryCard"]:hover {
+    border-color: var(--cms-border-hi) !important;
+    background: var(--cms-bg-3) !important;
+}
+
+[class*="EntryCard"] h2,
+[class*="GridCard"] h2 {
+    font-family: var(--cms-sans) !important;
+    color: var(--cms-text) !important;
+}
+
+[class*="EntryCard"] p,
+[class*="GridCard"] p {
+    color: var(--cms-text-dim) !important;
+}
+
+/* ---- Editor panel ---- */
+[class*="EditorContainer"],
+[class*="EditorPanel"],
+[class*="EditorContent"],
+[class*="ControlPanel"] {
+    background: var(--cms-bg) !important;
+    color: var(--cms-text) !important;
+}
+
+/* ---- Field labels ---- */
+[class*="FieldLabel"],
+[class*="label"],
+label {
+    font-family: var(--cms-mono) !important;
+    font-size: 10px !important;
+    letter-spacing: 0.15em !important;
+    text-transform: uppercase !important;
+    color: var(--cms-text-dim) !important;
+}
+
+/* ---- Field hints ---- */
+[class*="FieldHint"],
+[class*="hint"] {
+    font-family: var(--cms-mono) !important;
+    font-size: 10px !important;
+    color: var(--cms-text-dim) !important;
+    opacity: 0.8 !important;
+}
+
+/* ---- Text inputs & textareas ---- */
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="password"],
+textarea,
+select,
+[class*="TextControl"],
+[class*="StringControl"] {
+    background: var(--cms-bg-2) !important;
+    border: 1px solid var(--cms-border) !important;
+    color: var(--cms-text) !important;
+    font-family: var(--cms-sans) !important;
+    border-radius: 2px !important;
+    box-shadow: none !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+[class*="Control"]:focus-within {
+    border-color: var(--cms-border-hi) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--cms-text-dim) !important;
+}
+
+/* ---- Buttons ---- */
+button {
+    font-family: var(--cms-mono) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    border-radius: 2px !important;
+    transition: all 0.2s !important;
+}
+
+/* Default/secondary buttons */
+button:not([class*="primary"]):not([class*="danger"]):not([class*="success"]) {
+    background: transparent !important;
+    border: 1px solid var(--cms-border) !important;
+    color: var(--cms-text-dim) !important;
+}
+
+button:not([class*="primary"]):not([class*="danger"]):not([class*="success"]):hover {
+    border-color: var(--cms-border-hi) !important;
+    color: var(--cms-text) !important;
+    background: rgba(255,255,255,0.04) !important;
+}
+
+/* Primary / save buttons */
+button[class*="primary"],
+[class*="PublishButton"],
+[class*="SaveButton"] {
+    background: var(--cms-accent) !important;
+    color: #050505 !important;
+    border: none !important;
+    font-weight: 700 !important;
+}
+
+button[class*="primary"]:hover,
+[class*="PublishButton"]:hover {
+    background: #0ea371 !important;
+}
+
+/* Danger/delete buttons */
+button[class*="danger"],
+[class*="DeleteButton"] {
+    background: transparent !important;
+    border: 1px solid rgba(239, 68, 68, 0.4) !important;
+    color: #ef4444 !important;
+}
+
+button[class*="danger"]:hover {
+    background: rgba(239, 68, 68, 0.08) !important;
+    border-color: #ef4444 !important;
+}
+
+/* ---- Image widget ---- */
+[class*="ImageCard"],
+[class*="ImageWidget"],
+[class*="DropArea"],
+[class*="ImageWrapper"],
+[class*="image-card"] {
+    background: var(--cms-bg-2) !important;
+    border: 1px dashed var(--cms-border) !important;
+    color: var(--cms-text-dim) !important;
+}
+
+/* ---- Modals / overlays ---- */
+[class*="Modal"],
+[class*="Overlay"],
+[role="dialog"] {
+    background: rgba(5, 5, 5, 0.95) !important;
+    border: 1px solid var(--cms-border) !important;
+    color: var(--cms-text) !important;
+}
+
+/* ---- Media library ---- */
+[class*="MediaLibrary"],
+[class*="MediaCard"] {
+    background: var(--cms-bg-2) !important;
+    border: 1px solid var(--cms-border) !important;
+    color: var(--cms-text) !important;
+}
+
+/* ---- Dropdowns / selects ---- */
+[class*="Dropdown"],
+[class*="MenuList"],
+[role="listbox"],
+[role="menu"] {
+    background: var(--cms-bg-3) !important;
+    border: 1px solid var(--cms-border) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
+}
+
+[class*="Dropdown"] option,
+[role="option"] {
+    background: var(--cms-bg-3) !important;
+    color: var(--cms-text) !important;
+}
+
+[role="option"]:hover,
+[role="option"][aria-selected="true"] {
+    background: rgba(16, 185, 129, 0.1) !important;
+    color: var(--cms-text) !important;
+}
+
+/* ---- Status badges / pills ---- */
+[class*="Badge"],
+[class*="Status"],
+[class*="published"],
+[class*="Published"] {
+    font-family: var(--cms-mono) !important;
+    font-size: 10px !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    background: rgba(16, 185, 129, 0.15) !important;
+    color: var(--cms-accent) !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+    border-radius: 2px !important;
+}
+
+/* ---- Scrollbars ---- */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--cms-bg); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+/* ---- Rich text / markdown editor toolbar ---- */
+[class*="EditorToolbar"],
+[class*="Toolbar"] {
+    background: var(--cms-bg-2) !important;
+    border-bottom: 1px solid var(--cms-border) !important;
+}
+
+[class*="ToolbarButton"],
+[class*="EditorToolbar"] button {
+    color: var(--cms-text-dim) !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+[class*="ToolbarButton"]:hover {
+    color: var(--cms-text) !important;
+    background: rgba(255,255,255,0.06) !important;
+}
+
+/* ---- Headings throughout CMS ---- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--cms-sans) !important;
+    color: var(--cms-text) !important;
+}
+
+/* Section / collection headings */
+[class*="SectionHeading"],
+[class*="CollectionHeader"],
+[class*="CollectionTitle"] {
+    font-family: var(--cms-mono) !important;
+    font-size: 11px !important;
+    letter-spacing: 0.2em !important;
+    text-transform: uppercase !important;
+    color: var(--cms-text-dim) !important;
+}
+
+/* ---- Login page ---- */
+[class*="AuthenticationPage"],
+[class*="loginPage"] {
+    background: var(--cms-bg) !important;
+}
+
+/* ---- "New entry" / breadcrumb header ---- */
+[class*="EditorToolbar"],
+[class*="EditorMenuBar"] {
+    background: var(--cms-bg-2) !important;
+    border-bottom: 1px solid var(--cms-border) !important;
+}
+
+/* Back button */
+[class*="BackButton"],
+a[class*="back"] {
+    color: var(--cms-text-dim) !important;
+    font-family: var(--cms-mono) !important;
+    font-size: 11px !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+}
+
+/* ---- New entry button ---- */
+[class*="NewEntryButton"],
+[class*="addEntry"] {
+    background: transparent !important;
+    border: 1px solid var(--cms-border) !important;
+    color: var(--cms-text-dim) !important;
+    font-family: var(--cms-mono) !important;
+}
+
+[class*="NewEntryButton"]:hover {
+    border-color: var(--cms-border-hi) !important;
+    color: var(--cms-text) !important;
+}
+
+/* ---- Toast notifications ---- */
+[class*="Toast"],
+[class*="Notification"] {
+    background: var(--cms-bg-3) !important;
+    border: 1px solid var(--cms-border) !important;
+    color: var(--cms-text) !important;
+    font-family: var(--cms-mono) !important;
+    font-size: 11px !important;
+    letter-spacing: 0.08em !important;
+}
