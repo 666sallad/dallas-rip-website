@@ -190,8 +190,8 @@
                             <div class="wallpaper-card-overlay">
                                 <div class="wallpaper-card-title">${item.title}</div>
                                 <div class="wallpaper-dl-btns">
-                                    <a href="${item.desktop}" download class="wallpaper-dl-btn">Desktop</a>
-                                    <a href="${item.mobile}" download class="wallpaper-dl-btn">Mobile</a>
+                                    <a href="${item.desktop.replace(/\.avif$/i, '.jpg')}" download class="wallpaper-dl-btn">Desktop</a>
+                                    <a href="${item.mobile.replace(/\.avif$/i, '.jpg')}" download class="wallpaper-dl-btn">Mobile</a>
                                 </div>
                             </div>
                         `;
