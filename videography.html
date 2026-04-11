@@ -253,12 +253,12 @@
                         `;
                         videoGrid.appendChild(videoCard);
                     });
-
-                    setupPageInteractions();
                 } catch (error) {
                     console.error("Failed to load videography:", error);
                     videoGrid.innerHTML =
                         '<p style="color: var(--text-muted);">Could not load videography portfolio.</p>';
+                } finally {
+                    setupPageInteractions();
                 }
             }
 

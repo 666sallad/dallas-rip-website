@@ -272,12 +272,12 @@
                         `;
                         gallery.appendChild(galleryImg);
                     });
-
-                    setupInteractions();
                 } catch (error) {
                     console.error("Error fetching portfolio:", error);
                     gallery.innerHTML =
                         '<p style="color: var(--text-muted);">Could not load portfolio items.</p>';
+                } finally {
+                    setupInteractions();
                 }
             }
 
