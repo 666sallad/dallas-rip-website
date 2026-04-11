@@ -47,11 +47,11 @@
   // Expose the function to be called from other scripts
   window.pageIsReady = hideLoader;
 
-  // Failsafe: if pageIsReady is not called within 3 seconds, hide the loader anyway
+  // Failsafe: if pageIsReady is not called within 8 seconds, hide the loader anyway
   setTimeout(() => {
     if (!pageReady) {
       console.warn("Loader timed out. Hiding automatically.");
       hideLoader();
     }
-  }, 3000);
+  }, 8000);
 })();

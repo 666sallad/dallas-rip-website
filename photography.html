@@ -357,23 +357,27 @@
                         gallery.appendChild(galleryImg);
                     });
 
-                    // Wait for first 6 images before dismissing loader (2.5s max)
-                    const eagerImgs = [...gallery.querySelectorAll("img")].slice(0, 6);
+                    // Wire up tabs + apply the "all" filter NOW, before waiting for images.
+                    // This ensures commercial-only photos are already hidden when the loader fades.
+                    setupInteractions();
+
+                    // Wait for first 6 visible (non-hidden) images before dismissing loader (4s max)
+                    const eagerImgs = [...gallery.querySelectorAll(".gallery-img:not(.hidden) img")].slice(0, 6);
                     const imgLoads = eagerImgs.map(img => new Promise(res => {
                         if (img.complete && img.naturalHeight !== 0) res();
                         else { img.onload = res; img.onerror = res; }
                     }));
-                    await Promise.race([Promise.all(imgLoads), new Promise(res => setTimeout(res, 2500))]);
+                    await Promise.race([Promise.all(imgLoads), new Promise(res => setTimeout(res, 4000))]);
 
                 } catch (error) {
                     console.error("Error fetching portfolio:", error);
                     gallery.innerHTML =
                         '<p style="color: var(--text-muted);">Could not load portfolio items.</p>';
                 } finally {
-                    setupInteractions();
-                    if (window.pageIsReady) {
-                        window.pageIsReady();
-                    }
+                    // One animation frame so the browser paints the filtered state before fading the loader
+                    requestAnimationFrame(() => {
+                        if (window.pageIsReady) window.pageIsReady();
+                    });
                 }
             }
 
