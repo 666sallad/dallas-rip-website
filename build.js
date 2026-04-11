@@ -3,36 +3,21 @@ const path = require("path");
 const matter = require("gray-matter");
 
 const DIST_DIR = path.join(__dirname, "dist");
+const LIBS_DIR = path.join(DIST_DIR, "libs");
 
 // 1. Clean up the dist directory
 fs.emptyDirSync(DIST_DIR);
 console.log("Cleaned dist directory.");
+fs.mkdirSync(LIBS_DIR);
+console.log("Created libs directory.");
 
 // 2. Copy all necessary static files and folders
 const filesToCopy = [
-  "about.html",
-  "advertising.html",
-  "background.js",
-  "canvas.js",
-  "contact.html",
-  "footer.js",
-  "global.css",
-  "header.js",
-  "index.html",
-  "loader.js",
-  "package.json",
-  "package-lock.json",
-  "photography.html",
-  "README.md",
-  "settings-manager.js",
-  "styles.html",
-  "videography.html",
-  "websites.html",
-  "assets",
-  "_data",
-  "admin",
-  "node_modules/three", // Copy the entire three.js library
-  "node_modules/gsap",   // Copy the entire gsap library
+  "about.html", "advertising.html", "background.js", "canvas.js", "contact.html",
+  "footer.js", "global.css", "header.js", "index.html", "loader.js",
+  "package.json", "package-lock.json", "photography.html", "README.md",
+  "settings-manager.js", "styles.html", "videography.html", "websites.html",
+  "assets", "_data", "admin"
 ];
 
 filesToCopy.forEach((item) => {
@@ -44,14 +29,28 @@ filesToCopy.forEach((item) => {
   }
 });
 
-// 3. Generate content JSON from Markdown files
+// 3. Copy specific library files
+const libsToCopy = {
+  "three.module.js": "node_modules/three/build/three.module.js",
+  "OrbitControls.js": "node_modules/three/examples/jsm/controls/OrbitControls.js",
+  "gsap.js": "node_modules/gsap/index.js"
+};
+
+for (const [key, value] of Object.entries(libsToCopy)) {
+    const sourcePath = path.join(__dirname, value);
+    const destPath = path.join(LIBS_DIR, key);
+    if(fs.existsSync(sourcePath)) {
+        fs.copySync(sourcePath, destPath);
+        console.log(`Copied ${key} to dist/libs.`);
+    }
+}
+
+
+// 4. Generate content JSON from Markdown files
 function generateContentJson(directory, outputFileName) {
   const contentDir = path.join(__dirname, directory);
 
   if (!fs.existsSync(contentDir)) {
-    console.log(
-      `Directory ${directory} not found. Creating empty ${outputFileName}.`,
-    );
     fs.writeFileSync(path.join(DIST_DIR, outputFileName), "[]");
     return;
   }
@@ -76,7 +75,6 @@ function generateContentJson(directory, outputFileName) {
   );
 }
 
-// Generate JSON files inside the dist directory
 generateContentJson("_photography", "_photography.json");
 generateContentJson("_videography", "_videography.json");
 

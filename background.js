@@ -1,5 +1,5 @@
-import * as THREE from "./node_modules/three/build/three.module.js";
-import gsap from "./node_modules/gsap/index.js";
+import * as THREE from "./libs/three.module.js";
+import gsap from "./libs/gsap.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("cyber-canvas");

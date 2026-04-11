@@ -1,6 +1,6 @@
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import gsap from "gsap";
+import * as THREE from "./libs/three.module.js";
+import { OrbitControls } from "./libs/OrbitControls.js";
+import gsap from "./libs/gsap.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("cyber-canvas");
