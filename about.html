@@ -227,5 +227,12 @@
         </script>
         <script src="header.js"></script>
         <script src="background.js" type="module"></script>
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+                if (window.pageIsReady) {
+                    window.pageIsReady();
+                }
+            });
+        </script>
     </body>
 </html>

@@ -36,9 +36,19 @@
                             paid media, and content strategy to scale your
                             brand's digital footprint and maximize ROI.
                         </p>
-                        <div class="hero-jump-links" style="justify-content: flex-start; margin-top: 40px;">
-                            <a href="#campaigns" class="hero-jump-link">↓ Campaigns</a>
-                            <a href="#scopes" class="hero-jump-link">↓ Scopes</a>
+                        <div
+                            class="hero-jump-links"
+                            style="
+                                justify-content: flex-start;
+                                margin-top: 40px;
+                            "
+                        >
+                            <a href="#campaigns" class="hero-jump-link"
+                                >↓ Campaigns</a
+                            >
+                            <a href="#scopes" class="hero-jump-link"
+                                >↓ Scopes</a
+                            >
                             <a href="#scale" class="hero-jump-link">↓ Scale</a>
                         </div>
                     </section>
@@ -252,6 +262,13 @@
                 });
             });
         </script>
-        <script src="canvas.js"></script>
+        <script src="background.js" type="module"></script>
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+                if (window.pageIsReady) {
+                    window.pageIsReady();
+                }
+            });
+        </script>
     </body>
 </html>

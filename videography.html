@@ -283,6 +283,9 @@
                         '<p style="color: var(--text-muted);">Could not load videography portfolio.</p>';
                 } finally {
                     setupPageInteractions();
+                    if (window.pageIsReady) {
+                        window.pageIsReady();
+                    }
                 }
             }
 

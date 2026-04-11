@@ -358,6 +358,9 @@
                         '<p style="color: var(--text-muted);">Could not load portfolio items.</p>';
                 } finally {
                     setupInteractions();
+                    if (window.pageIsReady) {
+                        window.pageIsReady();
+                    }
                 }
             }
 
