@@ -30,6 +30,63 @@ collections:
           hint: "Select one or more categories that match the website filters",
         }
 
+  - name: "settings"
+    label: "Site Settings"
+    editor:
+      preview: false
+    files:
+      - label: "Global Settings"
+        name: "global"
+        file: "_data/settings.json"
+        fields:
+          - {
+              label: "Site Title (SEO)",
+              name: "site_title",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Site Description (SEO)",
+              name: "site_description",
+              widget: "text",
+              required: false,
+            }
+          - {
+              label: "Favicon / Site Icon",
+              name: "favicon",
+              widget: "image",
+              required: false,
+              hint: "Appears in browser tabs and link previews.",
+            }
+          - {
+              label: "Contact Email",
+              name: "email",
+              widget: "string",
+              required: false,
+              hint: "Updates the footer universally.",
+            }
+          - {
+              label: "Location",
+              name: "location",
+              widget: "string",
+              required: false,
+              hint: "Updates the footer universally.",
+            }
+          - {
+              label: "CTA Heading",
+              name: "cta_heading",
+              widget: "string",
+              required: false,
+              hint: "Heading for the 'Work With Me' boxes.",
+            }
+          - {
+              label: "CTA Text",
+              name: "cta_text",
+              widget: "text",
+              required: false,
+              hint: "Paragraph for the 'Work With Me' boxes.",
+            }
+
   - name: "videography"
     label: "Videography"
     folder: "_videography"
