@@ -1,64 +1,110 @@
 # dallas.rip Website
 
-This README provides a comprehensive overview of the dallas.rip website project, intended for both human developers and AI agents to understand its architecture, logic, and how to navigate the codebase.
+Personal portfolio website with a retro-futuristic "monitor bezel" design, interactive Three.js backgrounds, and a Decap CMS for content management.
 
-## Project Overview
+## Architecture
 
-This project is a personal portfolio website for dallas.rip. It features a retro-futuristic "cyber" theme with a "monitor bezel" design, an interactive particle background, and a typing effect in the header. The website is a static site, with content managed through Markdown files and a simple build script to generate JSON data.
+Static HTML/CSS/JS site — no frontend framework. Content is managed via Markdown files and a Node.js build script that generates JSON. Deployed on Netlify.
 
-## How it Works
+```
+dallas.rip website/
+├── index.html              # Landing page (cycling text, cityscape background)
+├── about.html              # About page
+├── contact.html            # Contact form
+├── photography.html        # Photography portfolio (dynamic from CMS)
+├── videography.html        # Videography portfolio (dynamic from CMS)
+├── websites.html           # Web design portfolio
+├── advertising.html        # Advertising services
+├── styles.html             # Style guide (no background effect)
+│
+├── background.js           # Three.js shader cityscape — used on most pages
+├── canvas.js               # Three.js 3D ripple grid — used on photo/video pages
+├── header.js               # Injects hamburger nav overlay into #global-header
+├── footer.js               # Injects footer into #global-footer
+├── loader.js               # Full-screen loading screen (hides via window.pageIsReady())
+├── settings-manager.js     # Loads _data/settings.json and updates page meta
+│
+├── global.css              # All styles (retro CRT monitor theme)
+├── build.js                # Build script: copies files, bundles libs, generates JSON
+├── netlify.toml            # Netlify: build command + publish dir
+│
+├── _photography/           # Markdown files for photography CMS content
+├── _videography/           # Markdown files for videography CMS content
+├── _data/settings.json     # Global site settings (title, description, etc.)
+└── admin/config.yml        # Decap CMS configuration
+```
 
-The website is built using a combination of static HTML, JavaScript for dynamic components and interactivity, and a Node.js build script for content processing.
+## Three.js Backgrounds
 
-### Static Site Generation
+Two separate effects — both loaded as **ES modules** (`type="module"`):
 
-The core of the content management system is the `build.js` script. This script reads Markdown files from the `_photography` and `_videography` directories, parses the front-matter from each file using the `gray-matter` library, and then generates `_photography.json` and `_videography.json` files respectively. These JSON files contain an array of objects, where each object represents the front-matter data from a Markdown file. This allows the website to dynamically display content from the Markdown files without needing a complex backend or database.
+| Script | Pages | Effect |
+|--------|-------|--------|
+| `background.js` | index, about, contact, websites, advertising | Shader-based pixelated cityscape with mouse glow and click flash |
+| `canvas.js` | photography, videography | 3D 40×40 instanced box grid with mouse-driven ripple waves |
 
-### Component-based Structure
+Both import Three.js from `/libs/three.module.js` (copied from node_modules at build time).
 
-The website uses a component-based approach for the header and footer.
-
-*   `header.js`: This script dynamically injects a header into the page. The header includes a "hamburger" menu icon that toggles a full-screen navigation overlay. The script is self-contained, with its own CSS and event listeners.
-*   `footer.js`: This script injects a footer with navigation links and contact information. It also includes a fade-in animation.
-
-These component scripts are loaded into placeholder `<div>` elements (`<div id="global-header">` and `<div id="global-footer">`) in the HTML files.
-
-### Styling
-
-The website's visual appearance is controlled by `global.css`. This file contains all the styles for the retro "monitor bezel" theme, typography, and layout.
-
-### Interactive Canvas Background
-
-The homepage features an interactive background created with `canvas.js`. This script generates a particle animation on an HTML `<canvas>` element. The particles react to mouse movement and clicks, creating a dynamic and engaging user experience.
-
-## Pages
-
-The website consists of several HTML pages:
-
-*   `index.html`: The main landing page, featuring the interactive canvas and primary navigation.
-*   `about.html`: A page with information about the site's owner.
-*   `contact.html`: A page with contact information.
-*   `photography.html`, `videography.html`, `websites.html`, `advertising.html`: Service-specific pages that likely display the content generated from the `_photography` and `_videography` directories.
-
-## Content Management
-
-Content for the photography and videography sections is managed through Markdown files in the `_photography` and `_videography` directories. Each Markdown file should contain a front-matter section with the necessary metadata (e.g., title, date, image URL).
-
-The `admin/config.yml` file suggests that a headless CMS, such as Netlify CMS, may have been used at some point to manage the content in these directories.
+`background.js` additionally imports GSAP for smooth mouse tracking via `/libs/gsap.js`.
 
 ## Build Process
 
-To generate the content JSON files, run the following command in your terminal:
+```bash
+npm install
+npm run build   # outputs to dist/
+```
+
+`build.js` does four things:
+1. Copies all HTML, CSS, JS source files and `_data/`, `admin/` to `dist/`
+2. Copies library files from `node_modules/` to `dist/libs/`:
+   - `three.module.js` — Three.js ES module build
+   - `gsap.js` — GSAP entry point (ES module, imports from `./gsap-core.js` and `./CSSPlugin.js`)
+   - `gsap-core.js` — GSAP core (required by gsap.js)
+   - `CSSPlugin.js` — GSAP CSS plugin (required by gsap.js)
+3. Parses Markdown frontmatter in `_photography/` and `_videography/`, outputs `_photography.json` and `_videography.json`. Image paths are rewritten from `.jpg`/`.png` → `.avif` in the JSON output.
+4. Converts all images in `assets/uploads/` to AVIF at quality 75 using `sharp`, saving them as `.avif` in `dist/assets/uploads/`. Source JPGs are never modified.
+
+> **Important:** `gsap.js` has relative imports for `gsap-core.js` and `CSSPlugin.js`. All three must be present in `dist/libs/` or GSAP will fail to load.
+
+> **Image workflow:** Always upload full-resolution JPGs via the CMS — the build handles AVIF conversion automatically. Never commit AVIF files to the repo; they belong in `dist/` only.
+
+Netlify runs `npm run build` on every push and publishes `dist/`.
+
+## Content Management
+
+Photography and videography portfolios are managed via [Decap CMS](https://decapcms.org/) at `/admin`. Content is stored as Markdown files with YAML frontmatter. The build script reads these and generates JSON consumed by the page scripts.
+
+Each photography entry (`_photography/*.md`) supports:
+- `title`, `image`, `description`, `categories` (cities, nature, people, commercial)
+
+Each videography entry (`_videography/*.md`) supports:
+- `title`, `video_url`, `thumbnail`, `description`
+
+## Loader
+
+`loader.js` shows a full-screen loading screen. Pages signal readiness by calling `window.pageIsReady()`. A 3-second failsafe hides the loader if `pageIsReady` is never called.
+
+Pages with dynamic content (photography, videography) call `pageIsReady()` after the JSON fetch completes. Static pages call it from a `DOMContentLoaded` listener.
+
+## Dependencies
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `three` | ^0.183.2 | 3D/WebGL backgrounds |
+| `gsap` | ^3.14.2 | Smooth mouse animation in background.js |
+| `gray-matter` | ^4.0.3 | Markdown frontmatter parsing in build.js |
+| `fs-extra` | ^11.3.4 | File copy utilities in build.js |
+| `http-server` | ^14.1.1 | Local development (`npm start`) |
+
+## Local Development
 
 ```bash
 npm install
 npm run build
+npm start       # serves dist/ at http://localhost:8080
 ```
 
-This will execute the `build.js` script and create or update the `_photography.json` and `_videography.json` files.
+## Known Constraints
 
-## Dependencies
-
-The project has one main dependency:
-
-*   `gray-matter`: A library for parsing front-matter from files.
+- **No tree-shaking** — Three.js (~624 KB) and GSAP are copied in full. The shader effect on most pages only needs a fraction of Three.js.
+- **No CSS/JS minification** — files are copied as-is to dist.

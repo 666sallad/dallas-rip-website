@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Texture Loader
   const textureLoader = new THREE.TextureLoader();
   const cityscapeTexture = textureLoader.load(
-    "/assets/uploads/hong kong at night.jpg",
+    "/assets/uploads/hong kong at night.avif",
   );
 
   // Geometry
