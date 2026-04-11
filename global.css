@@ -259,6 +259,42 @@ a {
     margin: 0;
     text-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
 }
+
+/* Jump Links under Hero Headings */
+.hero-jump-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 10;
+}
+.hero-jump-link {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 12px 24px;
+    border: 1px solid var(--glass-border);
+    border-radius: 30px; /* Pill shape for a modern look */
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.hero-jump-link:hover {
+    color: var(--text-main);
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
 .scroll-indicator {
     position: absolute;
     bottom: 40px;
