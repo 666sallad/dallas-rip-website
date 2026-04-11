@@ -78,8 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
         <!-- Wallpapers Link -->
-        <a href="wallpapers.html" class="nav-anim" style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; border: 1px solid rgba(255,255,255,0.12); padding: 8px 16px; margin-bottom: 30px; transition: color 0.2s, border-color 0.2s; transition-delay: 0.15s;" onmouseover="this.style.color='var(--text-main)';this.style.borderColor='rgba(255,255,255,0.4)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='rgba(255,255,255,0.12)'">
-          <span style="opacity:0.5">✦</span> Free Wallpapers
+        <a href="wallpapers.html" class="nav-anim" style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.85); text-decoration: none; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; margin-bottom: 30px; transition: color 0.2s, border-color 0.2s, background 0.2s; transition-delay: 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.8)';this.style.background='rgba(255,255,255,0.07)'" onmouseout="this.style.color='rgba(255,255,255,0.85)';this.style.borderColor='rgba(255,255,255,0.4)';this.style.background='transparent'">
+          ✦ Free Wallpapers
         </a>
 
         <!-- Contact Email -->
