@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .nav-anim { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
       #menuOverlay.open .nav-anim { opacity: 1; transform: translateY(0); }
     </style>
-    <header style="display: flex; justify-content: flex-start; align-items: center; padding: 30px 30px; pointer-events: none;">
+    <header style="display: flex; justify-content: flex-end; align-items: center; padding: 30px 40px; pointer-events: none;">
       <div id="menuToggleWrap">
         <div id="menuToggle" class="menu-icon">
           <span></span><span></span><span></span>
@@ -106,9 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
 
   const menuToggle = document.getElementById("menuToggle");
+  const menuToggleWrap = document.getElementById("menuToggleWrap");
   const menuOverlay = document.getElementById("menuOverlay");
 
-  menuToggle.addEventListener("click", () => {
+  menuToggleWrap.addEventListener("click", () => {
     menuOverlay.classList.toggle("open");
     menuToggle.classList.toggle("open");
     menuOverlay.style.opacity = menuOverlay.classList.contains("open")
