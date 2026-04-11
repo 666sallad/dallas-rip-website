@@ -13,6 +13,7 @@
     "three": "^0.183.2"
   },
   "devDependencies": {
+    "fs-extra": "^11.3.4",
     "http-server": "^14.1.1"
   }
 }
