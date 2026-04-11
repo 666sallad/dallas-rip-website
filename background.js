@@ -1,5 +1,5 @@
-import * as THREE from "./libs/three.module.js";
-import gsap from "./libs/gsap.js";
+import * as THREE from "/libs/three.module.js";
+import gsap from "/libs/gsap.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("cyber-canvas");
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Texture Loader
   const textureLoader = new THREE.TextureLoader();
   const cityscapeTexture = textureLoader.load(
-    "assets/uploads/hong kong at night.jpg",
+    "/assets/uploads/hong kong at night.jpg",
   );
 
   // Geometry

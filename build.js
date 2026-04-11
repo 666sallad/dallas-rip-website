@@ -13,11 +13,27 @@ console.log("Created libs directory.");
 
 // 2. Copy all necessary static files and folders
 const filesToCopy = [
-  "about.html", "advertising.html", "background.js", "canvas.js", "contact.html",
-  "footer.js", "global.css", "header.js", "index.html", "loader.js",
-  "package.json", "package-lock.json", "photography.html", "README.md",
-  "settings-manager.js", "styles.html", "videography.html", "websites.html",
-  "assets", "_data", "admin"
+  "about.html",
+  "advertising.html",
+  "background.js",
+  "canvas.js",
+  "contact.html",
+  "footer.js",
+  "global.css",
+  "header.js",
+  "index.html",
+  "loader.js",
+  "package.json",
+  "package-lock.json",
+  "photography.html",
+  "README.md",
+  "settings-manager.js",
+  "styles.html",
+  "videography.html",
+  "websites.html",
+  "assets",
+  "_data",
+  "admin",
 ];
 
 filesToCopy.forEach((item) => {
@@ -32,19 +48,19 @@ filesToCopy.forEach((item) => {
 // 3. Copy specific library files
 const libsToCopy = {
   "three.module.js": "node_modules/three/build/three.module.js",
-  "OrbitControls.js": "node_modules/three/examples/jsm/controls/OrbitControls.js",
-  "gsap.js": "node_modules/gsap/index.js"
+  "OrbitControls.js":
+    "node_modules/three/examples/jsm/controls/OrbitControls.js",
+  "gsap.js": "node_modules/gsap/index.js",
 };
 
 for (const [key, value] of Object.entries(libsToCopy)) {
-    const sourcePath = path.join(__dirname, value);
-    const destPath = path.join(LIBS_DIR, key);
-    if(fs.existsSync(sourcePath)) {
-        fs.copySync(sourcePath, destPath);
-        console.log(`Copied ${key} to dist/libs.`);
-    }
+  const sourcePath = path.join(__dirname, value);
+  const destPath = path.join(LIBS_DIR, key);
+  if (fs.existsSync(sourcePath)) {
+    fs.copySync(sourcePath, destPath);
+    console.log(`Copied ${key} to dist/libs.`);
+  }
 }
-
 
 // 4. Generate content JSON from Markdown files
 function generateContentJson(directory, outputFileName) {
@@ -78,5 +94,4 @@ function generateContentJson(directory, outputFileName) {
 generateContentJson("_photography", "_photography.json");
 generateContentJson("_videography", "_videography.json");
 
-console.log("
-Build process completed successfully!");
+console.log("\nBuild process completed successfully!");
