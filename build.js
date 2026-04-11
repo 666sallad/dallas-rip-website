@@ -129,11 +129,13 @@ async function copyAssetsWithAvif(srcDir, destDir) {
 
     const ext = path.extname(entry.name).toLowerCase();
 
-    // Skip source images that already have a pre-converted .avif sibling —
-    // the .avif copy below will handle them.
     if (IMAGE_EXTS.has(ext)) {
+      // Always copy the original JPG/PNG so Decap CMS can load image previews.
+      // The CMS references the original path; if only .avif exists in dist it gets a 404.
+      fs.copySync(srcPath, path.join(destDir, entry.name));
+
       const avifSibling = srcPath.replace(/\.(jpg|jpeg|png)$/i, ".avif");
-      if (fs.existsSync(avifSibling)) continue;
+      if (fs.existsSync(avifSibling)) continue; // .avif copy handled below
 
       // No pre-converted AVIF (new CMS image) — convert on the fly.
       const destName = entry.name.replace(/\.(jpg|jpeg|png)$/i, ".avif");
