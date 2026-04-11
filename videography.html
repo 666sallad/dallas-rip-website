@@ -104,9 +104,9 @@
                                 margin: 0 auto 60px;
                             "
                         >
-                            Cinematic production scaled to your needs, from
+                            Videography production scaled to your needs, from
                             fast-paced social reels to comprehensive brand
-                            films. Based in Brisbane.
+                            stories. Based in Brisbane.
                         </p>
                     </div>
 
@@ -193,14 +193,12 @@
 
                     <!-- CTA Section -->
                     <section class="cta-box fade-element" id="contact">
-                        <h2>License & Commission.</h2>
+                        <h2>Contact Me.</h2>
                         <p>
-                            Available globally for production, social media, and
-                            other videography work.
+                            Available globally for creative projects, website
+                            development, and advertising strategy.
                         </p>
-                        <a href="contact.html" class="cta-btn"
-                            >Work with me >></a
-                        >
+                        <a href="contact.html" class="cta-btn">Contact Now >></a>
                     </section>
 
                     <!-- Global Footer -->
@@ -268,7 +266,9 @@
                         videoCard.dataset.videoUrl = item.video_url;
 
                         // Now create the inner HTML
-                        const desc = item.description ? `<p class="video-desc">${item.description}</p>` : "";
+                        const desc = item.description
+                            ? `<p class="video-desc">${item.description}</p>`
+                            : "";
                         videoCard.innerHTML = `
                             <video src="${item.thumbnail}" autoplay loop muted playsinline loading="lazy" style="width:100%; height:100%; object-fit:cover;"></video>
                             <div class="video-overlay always-visible">
