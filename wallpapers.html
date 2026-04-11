@@ -58,7 +58,8 @@
                 transition: opacity 0.3s ease;
             }
 
-            .wallpaper-card:hover .wallpaper-card-overlay {
+            .wallpaper-card:hover .wallpaper-card-overlay,
+            .wallpaper-card.active .wallpaper-card-overlay {
                 opacity: 1;
             }
 
@@ -195,6 +196,14 @@
                                 </div>
                             </div>
                         `;
+                        // Tap to reveal overlay on touch devices
+                        card.addEventListener("click", (e) => {
+                            if (e.target.classList.contains("wallpaper-dl-btn")) return;
+                            const isActive = card.classList.contains("active");
+                            document.querySelectorAll(".wallpaper-card.active").forEach(c => c.classList.remove("active"));
+                            if (!isActive) card.classList.add("active");
+                        });
+
                         grid.appendChild(card);
                     });
                 } catch (e) {
