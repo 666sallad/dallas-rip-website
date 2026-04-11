@@ -97,3 +97,30 @@ collections:
       - { label: "Vimeo or YouTube URL", name: "video_url", widget: "string" }
       - { label: "Thumbnail Image", name: "thumbnail", widget: "image" }
       - { label: "Description", name: "description", widget: "text" }
+
+  - name: "wallpapers"
+    label: "Wallpapers"
+    folder: "_wallpapers"
+    create: true
+    slug: "{{slug}}"
+    media_folder: "/assets/uploads/wallpapers"
+    public_folder: "/assets/uploads/wallpapers"
+    fields:
+      - {
+          label: "Title",
+          name: "title",
+          widget: "string",
+          hint: "Displayed on hover, e.g. 'nobody's home'",
+        }
+      - {
+          label: "Desktop Wallpaper",
+          name: "desktop",
+          widget: "image",
+          hint: "16:9 landscape image — for desktop/monitor screens. Upload full resolution JPG.",
+        }
+      - {
+          label: "Mobile Wallpaper",
+          name: "mobile",
+          widget: "image",
+          hint: "9:16 portrait image — for phone lock/home screens. Upload full resolution JPG.",
+        }
