@@ -9,7 +9,6 @@ backend:
 # This is all that's needed for uploads with git-gateway.
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
-custom_css: /admin/cms.css
 
 # These are the content types you can edit in the CMS.
 collections:
