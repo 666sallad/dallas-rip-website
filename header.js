@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .menu-icon.open span:nth-child(2) { opacity: 0; }
       .menu-icon.open span:nth-child(3) { top: 7px; transform: rotate(-45deg); }
       /* Fills the bezel exactly — button is always inside the monitor frame */
-      #global-header { position: absolute; inset: 0; z-index: 100; pointer-events: none; }
+      #global-header { position: absolute; inset: 0; z-index: 10000; pointer-events: none; }
       #menuToggleWrap {
         display: inline-flex; align-items: center; justify-content: center;
         width: 44px; height: 44px;
