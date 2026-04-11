@@ -404,39 +404,39 @@
                 const tabs = document.querySelectorAll(".filter-tab");
                 const items = document.querySelectorAll(".gallery-img");
 
+                function applyFilter(filter) {
+                    items.forEach((item) => {
+                        item.style.transitionDelay = "0s";
+                        const categories = item.dataset.cat
+                            ? item.dataset.cat.split(",")
+                            : [];
+                        let shouldShow = false;
+
+                        if (filter === "all") {
+                            const onlyCommercial = categories.length === 1 && categories[0] === "commercial work";
+                            if (!onlyCommercial) shouldShow = true;
+                        } else {
+                            if (categories.includes(filter)) shouldShow = true;
+                        }
+
+                        if (shouldShow) {
+                            item.classList.remove("hidden");
+                        } else {
+                            item.classList.add("hidden");
+                        }
+                    });
+                }
+
+                // Apply "all" filter on initial load to hide commercial-only photos
+                applyFilter("all");
+
                 tabs.forEach((tab) => {
                     tab.addEventListener("click", () => {
                         tabs.forEach((t) => t.classList.remove("active"));
                         tab.classList.add("active");
                         const filter = tab.dataset.filter;
 
-                        items.forEach((item) => {
-                            item.style.transitionDelay = "0s";
-                            const categories = item.dataset.cat
-                                ? item.dataset.cat.split(",")
-                                : [];
-                            let shouldShow = false;
-
-                            if (filter === "all") {
-                                // Hide only if "commercial work" is the SOLE tag.
-                                // Items tagged commercial work + something else still show.
-                                const onlyCommercial = categories.length === 1 && categories[0] === "commercial work";
-                                if (!onlyCommercial) {
-                                    shouldShow = true;
-                                }
-                            } else {
-                                // For specific filters, show if it includes that category.
-                                if (categories.includes(filter)) {
-                                    shouldShow = true;
-                                }
-                            }
-
-                            if (shouldShow) {
-                                item.classList.remove("hidden");
-                            } else {
-                                item.classList.add("hidden");
-                            }
-                        });
+                        applyFilter(filter);
                     });
                 });
 
