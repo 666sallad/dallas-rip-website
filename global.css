@@ -2,7 +2,7 @@
    GLOBAL CSS SYSTEM
    ========================================================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Share+Tech+Mono&display=swap");
+@import url("/assets/fonts/fonts.css");
 
 :root {
     --bg-dark: #050505;

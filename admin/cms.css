@@ -2,7 +2,7 @@
    dallas.rip — Decap CMS Custom Theme
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;700;800&display=swap');
+@import url('/assets/fonts/fonts.css');
 
 /* ---- Variables ---- */
 :root {
