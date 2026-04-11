@@ -47,7 +47,10 @@ filesToCopy.forEach((item) => {
 // gsap/index.js is an ES module that imports from ./gsap-core.js and ./CSSPlugin.js,
 // so we must copy all three files to dist/libs/ to keep relative imports working.
 const libsToCopy = {
+  // three.module.js imports from ./three.core.js — both files must be present.
+  "three.core.js": "node_modules/three/build/three.core.js",
   "three.module.js": "node_modules/three/build/three.module.js",
+  // gsap/index.js imports from ./gsap-core.js and ./CSSPlugin.js — all three must be present.
   "gsap.js": "node_modules/gsap/index.js",
   "gsap-core.js": "node_modules/gsap/gsap-core.js",
   "CSSPlugin.js": "node_modules/gsap/CSSPlugin.js",
