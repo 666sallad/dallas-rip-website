@@ -118,9 +118,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Animation Loop
-  const clock = new THREE.Clock();
+  const startTime = performance.now();
   function animate() {
-    const elapsedTime = clock.getElapsedTime();
+    const elapsedTime = (performance.now() - startTime) / 1000;
     material.uniforms.uTime.value = elapsedTime;
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
