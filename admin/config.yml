@@ -17,6 +17,20 @@ collections:
     folder: "_photography"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{categories}}"
+    view_filters:
+      - label: "Cities"
+        field: categories
+        pattern: "Cities"
+      - label: "Nature"
+        field: categories
+        pattern: "Nature"
+      - label: "People"
+        field: categories
+        pattern: "People"
+      - label: "Commercial Work"
+        field: categories
+        pattern: "Commercial Work"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Image", name: "image", widget: "image" }
@@ -26,6 +40,7 @@ collections:
           name: "categories",
           widget: "select",
           multiple: true,
+          required: false,
           options: ["Cities", "Nature", "People", "Commercial Work"],
           hint: "Select one or more categories that match the website filters",
         }
