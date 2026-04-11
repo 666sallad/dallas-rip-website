@@ -64,6 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
                       <span class="dir-name">Photography</span>
                   </a>
               </li>
+              <li class="dir-item" style="padding-left: 16px;">
+                  <a href="wallpapers.html" class="dir-link" style="padding-left: 16px;">
+                      <span class="dir-arrows" style="color: rgba(255,255,255,0.3); font-size: 10px;">✦</span>
+                      <span class="dir-name" style="color: rgba(255,255,255,0.45); font-size: 12px;">Free Wallpapers</span>
+                  </a>
+              </li>
               <li class="dir-item">
                   <a href="videography.html" class="dir-link">
                       <span class="dir-arrows">>> ></span>
@@ -92,13 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <a href="contact.html" style="color: var(--text-dim); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--text-dim)'">Contact</a>
         </div>
 
-        <!-- Wallpapers Link -->
-        <a href="wallpapers.html" class="nav-anim" style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.85); text-decoration: none; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; margin-bottom: 30px; transition: color 0.2s, border-color 0.2s, background 0.2s; transition-delay: 0.15s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.8)';this.style.background='rgba(255,255,255,0.07)'" onmouseout="this.style.color='rgba(255,255,255,0.85)';this.style.borderColor='rgba(255,255,255,0.4)';this.style.background='transparent'">
-          ✦ Free Wallpapers
-        </a>
-
         <!-- Contact Email -->
-        <a href="mailto:contact@dallas.rip" class="nav-anim" style="font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.15em; transition-delay: 0.2s; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; transition: all 0.2s;" onmouseover="this.style.color='var(--text-main)'; this.style.borderColor='rgba(255,255,255,0.5)';" onmouseout="this.style.color='var(--text-dim)'; this.style.borderColor='rgba(255,255,255,0.1)';">contact@dallas.rip</a>
+        <a href="mailto:contact@dallas.rip" class="nav-anim" style="font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.15em; transition-delay: 0.15s; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; transition: all 0.2s;" onmouseover="this.style.color='var(--text-main)'; this.style.borderColor='rgba(255,255,255,0.5)';" onmouseout="this.style.color='var(--text-dim)'; this.style.borderColor='rgba(255,255,255,0.1)';">contact@dallas.rip</a>
 
       </div>
 
