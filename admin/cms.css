@@ -1,20 +1,21 @@
 /* ============================================================
    dallas.rip — Decap CMS Custom Theme
-   Matches the retro-futuristic monitor aesthetic of the site.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;700;800&display=swap');
 
 /* ---- Variables ---- */
 :root {
-    --cms-bg:        #050505;
-    --cms-bg-2:      #0d0d0d;
-    --cms-bg-3:      #141414;
-    --cms-border:    rgba(255, 255, 255, 0.1);
-    --cms-border-hi: rgba(255, 255, 255, 0.3);
-    --cms-text:      #ffffff;
-    --cms-text-dim:  #959595;
+    --cms-bg:        #080808;
+    --cms-bg-2:      #111111;
+    --cms-bg-3:      #1a1a1a;
+    --cms-bg-4:      #222222;
+    --cms-border:    rgba(255, 255, 255, 0.14);
+    --cms-border-hi: rgba(255, 255, 255, 0.35);
+    --cms-text:      #f0f0f0;
+    --cms-text-dim:  #888888;
     --cms-accent:    #10b981;
+    --cms-accent-bg: rgba(16, 185, 129, 0.1);
     --cms-mono:      'Share Tech Mono', monospace;
     --cms-sans:      'Syne', sans-serif;
 }
@@ -24,6 +25,7 @@ html, body {
     background-color: var(--cms-bg) !important;
     color: var(--cms-text) !important;
     font-family: var(--cms-sans) !important;
+    font-size: 15px !important;
 }
 
 /* ---- App root ---- */
@@ -72,13 +74,14 @@ aside a, nav a {
     text-transform: uppercase !important;
     color: var(--cms-text-dim) !important;
     transition: color 0.2s !important;
+    padding: 10px 16px !important;
 }
 
 [class*="Sidebar"] a:hover,
 [class*="NavList"] a:hover,
 aside a:hover {
     color: var(--cms-text) !important;
-    background: rgba(255,255,255,0.04) !important;
+    background: rgba(255,255,255,0.05) !important;
 }
 
 /* Active nav item */
@@ -86,9 +89,9 @@ aside a:hover {
 [class*="NavList"] [class*="active"],
 [class*="activeLink"],
 aside [class*="active"] {
-    color: var(--cms-text) !important;
+    color: var(--cms-accent) !important;
     border-left: 2px solid var(--cms-accent) !important;
-    background: rgba(16, 185, 129, 0.06) !important;
+    background: var(--cms-accent-bg) !important;
 }
 
 /* ---- Main content area ---- */
@@ -110,6 +113,7 @@ section,
     background: var(--cms-bg-2) !important;
     border: 1px solid var(--cms-border) !important;
     color: var(--cms-text) !important;
+    border-radius: 6px !important;
 }
 
 [class*="GridCard"]:hover,
@@ -121,12 +125,14 @@ section,
 [class*="EntryCard"] h2,
 [class*="GridCard"] h2 {
     font-family: var(--cms-sans) !important;
+    font-size: 15px !important;
     color: var(--cms-text) !important;
 }
 
 [class*="EntryCard"] p,
 [class*="GridCard"] p {
     color: var(--cms-text-dim) !important;
+    font-size: 13px !important;
 }
 
 /* ---- Editor panel ---- */
@@ -138,24 +144,35 @@ section,
     color: var(--cms-text) !important;
 }
 
+/* ---- Field wrapper spacing ---- */
+[class*="FieldWrapper"],
+[class*="field-wrapper"],
+[class*="FormField"] {
+    margin-bottom: 28px !important;
+    padding: 0 !important;
+}
+
 /* ---- Field labels ---- */
 [class*="FieldLabel"],
-[class*="label"],
 label {
     font-family: var(--cms-mono) !important;
     font-size: 10px !important;
-    letter-spacing: 0.15em !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.18em !important;
     text-transform: uppercase !important;
-    color: var(--cms-text-dim) !important;
+    color: rgba(255,255,255,0.5) !important;
+    margin-bottom: 8px !important;
+    display: block !important;
 }
 
 /* ---- Field hints ---- */
 [class*="FieldHint"],
 [class*="hint"] {
     font-family: var(--cms-mono) !important;
-    font-size: 10px !important;
+    font-size: 11px !important;
     color: var(--cms-text-dim) !important;
-    opacity: 0.8 !important;
+    margin-top: 6px !important;
+    opacity: 0.7 !important;
 }
 
 /* ---- Text inputs & textareas ---- */
@@ -168,58 +185,129 @@ textarea,
 select,
 [class*="TextControl"],
 [class*="StringControl"] {
-    background: var(--cms-bg-2) !important;
+    background: var(--cms-bg-3) !important;
     border: 1px solid var(--cms-border) !important;
     color: var(--cms-text) !important;
     font-family: var(--cms-sans) !important;
-    border-radius: 2px !important;
+    font-size: 15px !important;
+    border-radius: 4px !important;
     box-shadow: none !important;
+    padding: 10px 14px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.2s !important;
+}
+
+textarea {
+    min-height: 100px !important;
+    resize: vertical !important;
+    line-height: 1.6 !important;
 }
 
 input:focus,
 textarea:focus,
 select:focus,
 [class*="Control"]:focus-within {
-    border-color: var(--cms-border-hi) !important;
-    box-shadow: none !important;
+    border-color: var(--cms-accent) !important;
+    box-shadow: 0 0 0 2px rgba(16,185,129,0.15) !important;
     outline: none !important;
 }
 
 input::placeholder,
 textarea::placeholder {
-    color: var(--cms-text-dim) !important;
+    color: rgba(255,255,255,0.25) !important;
+}
+
+/* ---- Category / list widget tags ---- */
+[class*="StyledTag"],
+[class*="tag"],
+[class*="Token"],
+[class*="token"],
+[class*="Chip"],
+[class*="chip"],
+[class*="listItemTopBar"],
+[data-testid="list-item-field"] > *:first-child,
+[class*="ObjectWidgetTopBar"],
+[class*="TagInput"] [class*="tag"],
+[class*="RelationControl"] [class*="tag"] {
+    background: rgba(16,185,129,0.12) !important;
+    border: 1px solid rgba(16,185,129,0.35) !important;
+    color: #10b981 !important;
+    font-family: var(--cms-mono) !important;
+    font-size: 11px !important;
+    letter-spacing: 0.08em !important;
+    border-radius: 4px !important;
+    padding: 3px 10px !important;
+}
+
+/* Tag remove/X buttons */
+[class*="StyledTag"] button,
+[class*="Token"] button,
+[class*="Chip"] button {
+    color: rgba(16,185,129,0.6) !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+[class*="StyledTag"] button:hover,
+[class*="Token"] button:hover {
+    color: #10b981 !important;
+}
+
+/* List/select widget container */
+[class*="ListWidget"],
+[class*="SelectWidget"],
+[class*="RelationControl"],
+[class*="TagControl"] {
+    background: var(--cms-bg-3) !important;
+    border: 1px solid var(--cms-border) !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    min-height: 44px !important;
+}
+
+[class*="ListWidget"]:focus-within,
+[class*="SelectWidget"]:focus-within,
+[class*="RelationControl"]:focus-within,
+[class*="TagControl"]:focus-within {
+    border-color: var(--cms-accent) !important;
+    box-shadow: 0 0 0 2px rgba(16,185,129,0.15) !important;
 }
 
 /* ---- Buttons ---- */
 button {
     font-family: var(--cms-mono) !important;
+    font-size: 11px !important;
     text-transform: uppercase !important;
     letter-spacing: 0.1em !important;
-    border-radius: 2px !important;
+    border-radius: 4px !important;
     transition: all 0.2s !important;
+    cursor: pointer !important;
 }
 
 /* Default/secondary buttons */
-button:not([class*="primary"]):not([class*="danger"]):not([class*="success"]) {
+button:not([class*="primary"]):not([class*="danger"]):not([class*="success"]):not([class*="delete"]) {
     background: transparent !important;
     border: 1px solid var(--cms-border) !important;
     color: var(--cms-text-dim) !important;
 }
 
-button:not([class*="primary"]):not([class*="danger"]):not([class*="success"]):hover {
+button:not([class*="primary"]):not([class*="danger"]):not([class*="success"]):not([class*="delete"]):hover {
     border-color: var(--cms-border-hi) !important;
     color: var(--cms-text) !important;
-    background: rgba(255,255,255,0.04) !important;
+    background: rgba(255,255,255,0.05) !important;
 }
 
-/* Primary / save buttons */
+/* Primary / save / publish buttons */
 button[class*="primary"],
 [class*="PublishButton"],
-[class*="SaveButton"] {
+[class*="SaveButton"],
+button[class*="Publish"] {
     background: var(--cms-accent) !important;
     color: #050505 !important;
     border: none !important;
     font-weight: 700 !important;
+    padding: 8px 18px !important;
 }
 
 button[class*="primary"]:hover,
@@ -229,13 +317,15 @@ button[class*="primary"]:hover,
 
 /* Danger/delete buttons */
 button[class*="danger"],
+button[class*="delete"],
 [class*="DeleteButton"] {
     background: transparent !important;
-    border: 1px solid rgba(239, 68, 68, 0.4) !important;
+    border: 1px solid rgba(239, 68, 68, 0.35) !important;
     color: #ef4444 !important;
 }
 
-button[class*="danger"]:hover {
+button[class*="danger"]:hover,
+button[class*="delete"]:hover {
     background: rgba(239, 68, 68, 0.08) !important;
     border-color: #ef4444 !important;
 }
@@ -246,18 +336,38 @@ button[class*="danger"]:hover {
 [class*="DropArea"],
 [class*="ImageWrapper"],
 [class*="image-card"] {
-    background: var(--cms-bg-2) !important;
-    border: 1px dashed var(--cms-border) !important;
+    background: var(--cms-bg-3) !important;
+    border: 1px dashed rgba(255,255,255,0.2) !important;
     color: var(--cms-text-dim) !important;
+    border-radius: 4px !important;
+    padding: 16px !important;
+}
+
+/* Image upload links */
+[class*="ImageCard"] a,
+[class*="ImageWidget"] a,
+[class*="DropArea"] a {
+    color: var(--cms-text-dim) !important;
+    font-family: var(--cms-mono) !important;
+    font-size: 11px !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+}
+
+[class*="ImageCard"] a:hover,
+[class*="ImageWidget"] a:hover {
+    color: var(--cms-text) !important;
 }
 
 /* ---- Modals / overlays ---- */
 [class*="Modal"],
 [class*="Overlay"],
 [role="dialog"] {
-    background: rgba(5, 5, 5, 0.95) !important;
+    background: rgba(8, 8, 8, 0.97) !important;
     border: 1px solid var(--cms-border) !important;
     color: var(--cms-text) !important;
+    border-radius: 8px !important;
 }
 
 /* ---- Media library ---- */
@@ -266,6 +376,7 @@ button[class*="danger"]:hover {
     background: var(--cms-bg-2) !important;
     border: 1px solid var(--cms-border) !important;
     color: var(--cms-text) !important;
+    border-radius: 4px !important;
 }
 
 /* ---- Dropdowns / selects ---- */
@@ -274,35 +385,52 @@ button[class*="danger"]:hover {
 [role="listbox"],
 [role="menu"] {
     background: var(--cms-bg-3) !important;
-    border: 1px solid var(--cms-border) !important;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
+    border: 1px solid var(--cms-border-hi) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7) !important;
+    border-radius: 6px !important;
 }
 
 [class*="Dropdown"] option,
 [role="option"] {
     background: var(--cms-bg-3) !important;
     color: var(--cms-text) !important;
+    font-family: var(--cms-sans) !important;
+    font-size: 14px !important;
+    padding: 10px 14px !important;
 }
 
 [role="option"]:hover,
 [role="option"][aria-selected="true"] {
-    background: rgba(16, 185, 129, 0.1) !important;
+    background: var(--cms-accent-bg) !important;
     color: var(--cms-text) !important;
 }
 
-/* ---- Status badges / pills ---- */
+/* ---- Status badges ---- */
 [class*="Badge"],
-[class*="Status"],
-[class*="published"],
-[class*="Published"] {
+[class*="Status"] {
     font-family: var(--cms-mono) !important;
     font-size: 10px !important;
     letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
-    background: rgba(16, 185, 129, 0.15) !important;
+    border-radius: 3px !important;
+}
+
+/* Published */
+[class*="published"],
+[class*="Published"] {
+    background: rgba(16, 185, 129, 0.12) !important;
     color: var(--cms-accent) !important;
     border: 1px solid rgba(16, 185, 129, 0.3) !important;
-    border-radius: 2px !important;
+}
+
+/* Unsaved / draft */
+[class*="unsaved"],
+[class*="Unsaved"],
+[class*="draft"],
+[class*="Draft"] {
+    background: rgba(251, 191, 36, 0.1) !important;
+    color: #fbbf24 !important;
+    border: 1px solid rgba(251, 191, 36, 0.3) !important;
 }
 
 /* ---- Scrollbars ---- */
@@ -336,7 +464,11 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--cms-text) !important;
 }
 
-/* Section / collection headings */
+h1 { font-size: 22px !important; }
+h2 { font-size: 17px !important; }
+h3 { font-size: 15px !important; }
+
+/* Collection headings */
 [class*="SectionHeading"],
 [class*="CollectionHeader"],
 [class*="CollectionTitle"] {
@@ -353,14 +485,18 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--cms-bg) !important;
 }
 
-/* ---- "New entry" / breadcrumb header ---- */
+/* ---- Breadcrumb / editor top bar ---- */
 [class*="EditorToolbar"],
 [class*="EditorMenuBar"] {
     background: var(--cms-bg-2) !important;
     border-bottom: 1px solid var(--cms-border) !important;
+    padding: 0 16px !important;
+    min-height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
-/* Back button */
+/* Back link */
 [class*="BackButton"],
 a[class*="back"] {
     color: var(--cms-text-dim) !important;
@@ -368,6 +504,11 @@ a[class*="back"] {
     font-size: 11px !important;
     letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
+}
+
+[class*="BackButton"]:hover,
+a[class*="back"]:hover {
+    color: var(--cms-text) !important;
 }
 
 /* ---- New entry button ---- */
@@ -380,17 +521,37 @@ a[class*="back"] {
 }
 
 [class*="NewEntryButton"]:hover {
-    border-color: var(--cms-border-hi) !important;
-    color: var(--cms-text) !important;
+    border-color: var(--cms-accent) !important;
+    color: var(--cms-accent) !important;
 }
 
 /* ---- Toast notifications ---- */
 [class*="Toast"],
 [class*="Notification"] {
     background: var(--cms-bg-3) !important;
-    border: 1px solid var(--cms-border) !important;
+    border: 1px solid var(--cms-border-hi) !important;
     color: var(--cms-text) !important;
     font-family: var(--cms-mono) !important;
-    font-size: 11px !important;
-    letter-spacing: 0.08em !important;
+    font-size: 12px !important;
+    letter-spacing: 0.06em !important;
+    border-radius: 4px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
+}
+
+/* ---- Search input ---- */
+[class*="SearchInput"],
+input[type="search"] {
+    background: var(--cms-bg-3) !important;
+    border: 1px solid var(--cms-border) !important;
+    border-radius: 4px !important;
+    color: var(--cms-text) !important;
+    font-family: var(--cms-sans) !important;
+}
+
+/* ---- Preview pane toggle ---- */
+[class*="PreviewToggle"],
+[class*="TogglePreview"] {
+    color: var(--cms-text-dim) !important;
+    border: 1px solid var(--cms-border) !important;
+    border-radius: 4px !important;
 }
