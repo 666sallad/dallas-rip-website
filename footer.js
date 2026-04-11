@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <a href="videography.html" class="menu-link-glitch">Videography</a>
           <a href="websites.html" class="menu-link-glitch">Websites</a>
           <a href="advertising.html" class="menu-link-glitch">Advertising</a>
+          <a href="wallpapers.html" class="menu-link-glitch">Wallpapers</a>
         </div>
       </div>
       <div class="footer-contact-group">

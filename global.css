@@ -810,14 +810,19 @@ a {
     color: var(--text-muted);
 }
 .lightbox-info h3 {
+    font-family: var(--sans);
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-main);
     margin-bottom: 15px;
+    letter-spacing: 0.02em;
 }
 .lightbox-info p {
-    font-size: 15px;
-    line-height: 1.7;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
 }
 .lb-close {
     position: absolute;

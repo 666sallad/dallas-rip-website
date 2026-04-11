@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .menu-icon.open span:nth-child(1) { top: 9px; transform: rotate(45deg); }
       .menu-icon.open span:nth-child(2) { opacity: 0; }
       .menu-icon.open span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
-      #global-header { position: absolute; top: 0; left: 0; z-index: 10000; width: 100%; pointer-events: none; }
+      #global-header { position: fixed; top: 0; left: 0; z-index: 10000; width: 100%; pointer-events: none; }
 
       .nav-anim { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
       #menuOverlay.open .nav-anim { opacity: 1; transform: translateY(0); }
