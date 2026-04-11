@@ -71,11 +71,16 @@ document.addEventListener("DOMContentLoaded", () => {
         </nav>
 
         <!-- Secondary Navigation -->
-        <div class="nav-anim" style="display: flex; gap: 30px; margin-bottom: 30px; font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; transition-delay: 0.1s;">
+        <div class="nav-anim" style="display: flex; gap: 30px; margin-bottom: 20px; font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; transition-delay: 0.1s;">
           <a href="index.html" style="color: var(--text-dim); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--text-dim)'">Home</a>
           <a href="about.html" style="color: var(--text-dim); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--text-dim)'">About</a>
           <a href="contact.html" style="color: var(--text-dim); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--text-dim)'">Contact</a>
         </div>
+
+        <!-- Wallpapers Link -->
+        <a href="wallpapers.html" class="nav-anim" style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; border: 1px solid rgba(255,255,255,0.12); padding: 8px 16px; margin-bottom: 30px; transition: color 0.2s, border-color 0.2s; transition-delay: 0.15s;" onmouseover="this.style.color='var(--text-main)';this.style.borderColor='rgba(255,255,255,0.4)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='rgba(255,255,255,0.12)'">
+          <span style="opacity:0.5">✦</span> Free Wallpapers
+        </a>
 
         <!-- Contact Email -->
         <a href="mailto:contact@dallas.rip" class="nav-anim" style="font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.15em; transition-delay: 0.2s; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; transition: all 0.2s;" onmouseover="this.style.color='var(--text-main)'; this.style.borderColor='rgba(255,255,255,0.5)';" onmouseout="this.style.color='var(--text-dim)'; this.style.borderColor='rgba(255,255,255,0.1)';">contact@dallas.rip</a>
