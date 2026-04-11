@@ -9,81 +9,136 @@
             href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="global.css">
+        <link rel="stylesheet" href="global.css" />
     </head>
     <body>
         <div class="monitor-bezel">
             <div class="monitor-screen" id="scrollArea">
-                <!-- Abstract Screen Background -->
-                <div
-                    class="screen-bg"
-                    style="
-                        background-image: url(&quot;https://cdn.prod.website-files.com/665e755c7a21d20bd4a985bc/68844de0d424958970604c9c_Z63_8151.avif&quot;);
-                    "
-                ></div>
+                <canvas id="cyber-canvas"></canvas>
                 <div class="screen-overlay"></div>
 
                 <div class="container">
                     <!-- Top Navigation -->
                     <!-- Global Header -->
-      <div id="global-header"></div>
+                    <div id="global-header"></div>
 
                     <!-- Hero -->
                     <section class="hero">
                         <div class="micro-text">Let's work together</div>
                         <h1>Contact.</h1>
                         <p>
-                             Provide your project details below to request a quote or start a conversation.
+                            Provide your project details below to request a
+                            quote or start a conversation.
                         </p>
                     </section>
 
                     <!-- Form Panel -->
                     <div class="form-panel">
-                        <form id="contactForm" action="https://formspree.io/f/xeepvvar" method="POST">
+                        <form
+                            id="contactForm"
+                            action="https://formspree.io/f/xeepvvar"
+                            method="POST"
+                        >
                             <div class="form-group">
                                 <label class="form-label">Name</label>
-                                <input type="text" name="name" class="form-control" placeholder="Your name..." required />
+                                <input
+                                    type="text"
+                                    name="name"
+                                    class="form-control"
+                                    placeholder="Your name..."
+                                    required
+                                />
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Email Address</label>
-                                <input type="email" name="email" class="form-control" placeholder="user@domain.com" required />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    class="form-control"
+                                    placeholder="user@domain.com"
+                                    required
+                                />
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="form-label">Phone Number</label>
-                                <input type="tel" name="phone" class="form-control" placeholder="+61..." required />
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    class="form-control"
+                                    placeholder="+61..."
+                                    required
+                                />
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Project Type</label>
                                 <div class="selection-grid">
                                     <label class="radio-label selected">
-                                        <input type="radio" name="project_type" value="Photography" checked onchange="updateRadios(this)" />
-                                        <span class="radio-text">Photography</span>
+                                        <input
+                                            type="radio"
+                                            name="project_type"
+                                            value="Photography"
+                                            checked
+                                            onchange="updateRadios(this)"
+                                        />
+                                        <span class="radio-text"
+                                            >Photography</span
+                                        >
                                     </label>
                                     <label class="radio-label">
-                                        <input type="radio" name="project_type" value="Videography" onchange="updateRadios(this)" />
-                                        <span class="radio-text">Videography</span>
+                                        <input
+                                            type="radio"
+                                            name="project_type"
+                                            value="Videography"
+                                            onchange="updateRadios(this)"
+                                        />
+                                        <span class="radio-text"
+                                            >Videography</span
+                                        >
                                     </label>
                                     <label class="radio-label">
-                                        <input type="radio" name="project_type" value="Websites" onchange="updateRadios(this)" />
+                                        <input
+                                            type="radio"
+                                            name="project_type"
+                                            value="Websites"
+                                            onchange="updateRadios(this)"
+                                        />
                                         <span class="radio-text">Websites</span>
                                     </label>
                                     <label class="radio-label">
-                                        <input type="radio" name="project_type" value="Advertising" onchange="updateRadios(this)" />
-                                        <span class="radio-text">Advertising</span>
+                                        <input
+                                            type="radio"
+                                            name="project_type"
+                                            value="Advertising"
+                                            onchange="updateRadios(this)"
+                                        />
+                                        <span class="radio-text"
+                                            >Advertising</span
+                                        >
                                     </label>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Project Details</label>
-                                <textarea name="message" class="form-control" placeholder="Tell me about your goals..."></textarea>
+                                <label class="form-label"
+                                    >Project Details</label
+                                >
+                                <textarea
+                                    name="message"
+                                    class="form-control"
+                                    placeholder="Tell me about your goals..."
+                                ></textarea>
                             </div>
 
-                            <button type="submit" class="submit-btn" id="submitBtn">
-                                Send Message <span style="font-size: 10px">>></span>
+                            <button
+                                type="submit"
+                                class="submit-btn"
+                                id="submitBtn"
+                            >
+                                Send Message
+                                <span style="font-size: 10px">>></span>
                             </button>
                         </form>
 
@@ -91,13 +146,15 @@
                             <p>
                                 > Message Sent Successfully.<br />
                                 > Your inquiry has been forwarded.<br />
-                                > I will be in touch shortly.<span class="cursor-blink"></span>
+                                > I will be in touch shortly.<span
+                                    class="cursor-blink"
+                                ></span>
                             </p>
                         </div>
                     </div>
-                    
+
                     <!-- Global Footer INJECTED PROPERLY INSIDE CONTAINER -->
-                    <div id="global-footer" style="margin-top: 60px;"></div>
+                    <div id="global-footer" style="margin-top: 60px"></div>
                 </div>
             </div>
         </div>
@@ -174,6 +231,6 @@
             });
         </script>
         <script src="header.js"></script>
-  <script src="canvas.js"></script>
-</body>
+        <script src="background.js" type="module"></script>
+    </body>
 </html>

@@ -1,132 +1,125 @@
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import gsap from "gsap";
+
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("cyber-canvas");
   if (!canvas) return;
-  const ctx = canvas.getContext("2d");
 
-  let width, height;
-  let particles = [];
-  let mouse = { x: null, y: null, radius: 150 };
+  // Scene Setup
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000,
+  );
+  const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    antialias: true,
+  });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  const screenArea = document.querySelector(".monitor-screen") || document.body;
-  if (screenArea) {
-    screenArea.addEventListener("mousemove", (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    });
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  scene.add(ambientLight);
 
-    screenArea.addEventListener("mouseleave", () => {
-      mouse.x = null;
-      mouse.y = null;
-    });
+  const pointLight = new THREE.PointLight(0x00ff88, 20);
+  pointLight.position.set(5, 5, 5);
+  scene.add(pointLight);
 
-    // Add interactive click/tap explosion effect
-    screenArea.addEventListener("click", (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const clickY = e.clientY - rect.top;
+  // Grid Configuration
+  const GRID_SIZE = 40;
+  const SPACING = 1.1;
+  const totalInstances = GRID_SIZE * GRID_SIZE;
 
-      // Spawn extra interactive particles at click location
-      for (let i = 0; i < 15; i++) {
-        const size = Math.random() * 2 + 1;
-        const velocityX = Math.random() * 6 - 3;
-        const velocityY = Math.random() * 6 - 3;
-        particles.push(
-          new Particle(clickX, clickY, velocityX, velocityY, size),
-        );
-      }
-    });
-  }
+  // Geometry & Material
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const material = new THREE.MeshPhongMaterial({
+    color: 0x222222,
+    shininess: 100,
+  });
 
-  function init() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+  // Instanced Mesh
+  const instancedMesh = new THREE.InstancedMesh(
+    geometry,
+    material,
+    totalInstances,
+  );
+  scene.add(instancedMesh);
 
-    particles = [];
-    const numParticles = (width * height) / 9000;
+  // Helper to set instance positions in a grid
+  const dummy = new THREE.Object3D();
+  const positions = [];
 
-    for (let i = 0; i < numParticles; i++) {
-      const size = Math.random() * 1.5 + 0.5;
-      const x = Math.random() * width;
-      const y = Math.random() * height;
-      const velocityX = Math.random() * 0.5 - 0.25;
-      const velocityY = Math.random() * 0.5 - 0.25;
+  for (let i = 0; i < GRID_SIZE; i++) {
+    for (let j = 0; j < GRID_SIZE; j++) {
+      const x = (i - GRID_SIZE / 2) * SPACING;
+      const z = (j - GRID_SIZE / 2) * SPACING;
+      positions.push({ x, z });
 
-      particles.push(new Particle(x, y, velocityX, velocityY, size));
+      dummy.position.set(x, 0, z);
+      dummy.updateMatrix();
+      instancedMesh.setMatrixAt(i * GRID_SIZE + j, dummy.matrix);
     }
   }
 
-  class Particle {
-    constructor(x, y, velocityX, velocityY, size) {
-      this.x = x;
-      this.y = y;
-      this.velocityX = velocityX;
-      this.velocityY = velocityY;
-      this.size = size;
-      this.baseSize = size;
-    }
+  camera.position.set(0, 30, 40);
+  camera.lookAt(0, 0, 0);
 
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+  // Mouse Interaction
+  const mouse = new THREE.Vector2();
+  const raycaster = new THREE.Raycaster();
+  const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0); // Flat plane for raycasting
+  const mouseWorldPos = new THREE.Vector3();
 
-      // Dynamic coloring to make clicks pop
-      const intensity = Math.min(255, Math.abs(this.velocityX * 80) + 180);
-      ctx.fillStyle = `rgba(${intensity}, 255, 255, 0.6)`;
-      ctx.fill();
-    }
+  window.addEventListener("mousemove", (e) => {
+    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  });
 
-    update() {
-      this.x += this.velocityX;
-      this.y += this.velocityY;
-
-      // Bounce off walls
-      if (this.x > width || this.x < 0) this.velocityX = -this.velocityX;
-      if (this.y > height || this.y < 0) this.velocityY = -this.velocityY;
-
-      // Interaction with mouse pointer
-      if (mouse.x !== null) {
-        let dx = mouse.x - this.x;
-        let dy = mouse.y - this.y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < mouse.radius) {
-          const force = (mouse.radius - distance) / mouse.radius;
-          this.x -= (dx / distance) * force * 1.5;
-          this.y -= (dy / distance) * force * 1.5;
-          this.size = this.baseSize * 2.5;
-        } else {
-          this.size = this.baseSize;
-        }
-      }
-      this.draw();
-    }
-  }
-
+  // Animation Loop
   function animate() {
     requestAnimationFrame(animate);
-    ctx.fillStyle = "rgba(5, 5, 5, 0.1)";
-    ctx.fillRect(0, 0, width, height);
 
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update();
-      for (let j = i; j < particles.length; j++) {
-        let dx = particles[i].x - particles[j].x;
-        let dy = particles[i].y - particles[j].y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
+    // Update mouse world position
+    raycaster.setFromCamera(mouse, camera);
+    raycaster.ray.intersectPlane(plane, mouseWorldPos);
 
-        if (distance < 120) {
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(0, 255, 200, ${0.15 - distance / 800})`;
-          ctx.lineWidth = 0.5;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-        }
-      }
+    const time = Date.now() * 0.002;
+
+    for (let i = 0; i < totalInstances; i++) {
+      const pos = positions[i];
+
+      // Calculate distance from mouse to this instance
+      const dist = mouseWorldPos.distanceTo(new THREE.Vector3(pos.x, 0, pos.z));
+
+      // Ripple Logic: Sine wave based on distance and time
+      const ripple = Math.sin(dist * 0.5 - time) * 2;
+      const intensity = Math.max(0, 10 - dist) * 0.2; // Fade out ripple based on distance
+
+      const y = ripple * intensity;
+      const scale = 1 + y * 0.2;
+
+      dummy.position.set(pos.x, y, pos.z);
+      dummy.scale.set(1, Math.max(0.1, scale), 1);
+
+      dummy.updateMatrix();
+      instancedMesh.setMatrixAt(i, dummy.matrix);
     }
+
+    instancedMesh.instanceMatrix.needsUpdate = true;
+
+    renderer.render(scene, camera);
   }
 
-  window.addEventListener("resize", init);
-  init();
+  // Handle Resize
+  window.addEventListener("resize", () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
   animate();
 });
