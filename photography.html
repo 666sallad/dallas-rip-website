@@ -332,7 +332,7 @@
 
                     gallery.innerHTML = ""; // Clear placeholders
 
-                    portfolioItems.forEach((item) => {
+                    portfolioItems.forEach((item, index) => {
                         const galleryImg = document.createElement("div");
                         galleryImg.className = "gallery-img";
 
@@ -346,15 +346,25 @@
                         galleryImg.dataset.description = item.description || "";
                         galleryImg.dataset.image = item.image;
 
-                        // Now create the inner HTML
+                        // First 6 load eagerly so the page looks populated before loader dismisses
+                        const loadingAttr = index < 6 ? "eager" : "lazy";
                         galleryImg.innerHTML = `
-                            <img src="${item.image}" alt="${item.title}" loading="lazy">
+                            <img src="${item.image}" alt="${item.title}" loading="${loadingAttr}">
                             <div class="photo-overlay">
                                 <h3 class="title">${item.title}</h3>
                             </div>
                         `;
                         gallery.appendChild(galleryImg);
                     });
+
+                    // Wait for first 6 images before dismissing loader (2.5s max)
+                    const eagerImgs = [...gallery.querySelectorAll("img")].slice(0, 6);
+                    const imgLoads = eagerImgs.map(img => new Promise(res => {
+                        if (img.complete && img.naturalHeight !== 0) res();
+                        else { img.onload = res; img.onerror = res; }
+                    }));
+                    await Promise.race([Promise.all(imgLoads), new Promise(res => setTimeout(res, 2500))]);
+
                 } catch (error) {
                     console.error("Error fetching portfolio:", error);
                     gallery.innerHTML =
@@ -408,8 +418,10 @@
                             let shouldShow = false;
 
                             if (filter === "all") {
-                                // For 'All', show if it's NOT commercial work.
-                                if (!categories.includes("commercial")) {
+                                // Hide only if commercial is the SOLE tag.
+                                // Items tagged commercial + portrait etc. still show.
+                                const onlyCommercial = categories.length === 1 && categories.includes("commercial");
+                                if (!onlyCommercial) {
                                     shouldShow = true;
                                 }
                             } else {
@@ -439,10 +451,14 @@
                         : "";
                     lbInfo.innerHTML = `<h3>${data.title}</h3>${descriptionText}`;
                     lb.classList.add("open");
+                    const toggle = document.getElementById("menuToggleWrap");
+                    if (toggle) toggle.style.display = "none";
                 }
 
                 function closeLightbox() {
                     lb.classList.remove("open");
+                    const toggle = document.getElementById("menuToggleWrap");
+                    if (toggle) toggle.style.display = "";
                 }
 
                 items.forEach((item) => {

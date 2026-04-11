@@ -1,15 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let screenArea = document.querySelector(".monitor-screen");
-  if (!screenArea) return; // Fallback
+  // Insert into the bezel (not the scrollable screen) so the button
+  // stays inside the monitor frame and doesn't scroll away.
+  const bezel = document.querySelector(".monitor-bezel") || document.body;
 
   let headerPlaceholder = document.getElementById("global-header");
   if (!headerPlaceholder) {
     headerPlaceholder = document.createElement("div");
     headerPlaceholder.id = "global-header";
   }
-  // Ensure header is inside monitor-screen so it stays within the screen boundary
-  // and does not overlap the native scrollbar
-  screenArea.insertBefore(headerPlaceholder, screenArea.firstChild);
+  bezel.appendChild(headerPlaceholder);
 
   headerPlaceholder.innerHTML = `
     <style>
@@ -21,7 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
       .menu-icon.open span:nth-child(1) { top: 7px; transform: rotate(45deg); }
       .menu-icon.open span:nth-child(2) { opacity: 0; }
       .menu-icon.open span:nth-child(3) { top: 7px; transform: rotate(-45deg); }
-      #global-header { position: fixed; top: 0; left: 0; z-index: 10000; width: 100%; pointer-events: none; }
+      /* Fills the bezel exactly — button is always inside the monitor frame */
+      #global-header { position: absolute; inset: 0; z-index: 100; pointer-events: none; }
       #menuToggleWrap {
         display: inline-flex; align-items: center; justify-content: center;
         width: 44px; height: 44px;
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .nav-anim { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
       #menuOverlay.open .nav-anim { opacity: 1; transform: translateY(0); }
     </style>
-    <header style="display: flex; justify-content: flex-end; align-items: center; padding: 30px 40px; pointer-events: none;">
+    <header style="display: flex; justify-content: flex-end; align-items: center; padding: 25px 30px; pointer-events: none; position: relative; z-index: 10000;">
       <div id="menuToggleWrap">
         <div id="menuToggle" class="menu-icon">
           <span></span><span></span><span></span>
