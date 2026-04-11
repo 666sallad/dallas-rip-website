@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Custom Projects",
+    "description": "Let me know how I can help you.",
+    "thumbnail": "/assets/uploads/Custom Video Projects.mp4",
+    "video_url": "/contact"
+  },
+  {
+    "title": "Interview Style Videos",
+    "description": "Purpose: To help promote products, services, courses. Often used for websites and longer-format advertising and social media.",
+    "thumbnail": "/assets/uploads/Interview Style Videography.mp4",
+    "video_url": "https://www.facebook.com/reel/1293134661819829"
+  },
+  {
+    "title": "Ready for Social Media",
+    "description": "Need content for social media? I visit your business and work with your Team to help promote your products/services.",
+    "thumbnail": "/assets/uploads/Social Media Videography.mp4",
+    "video_url": "https://www.facebook.com/reel/287024787758504"
+  },
+  {
+    "title": "Videography for Websites",
+    "description": "I visit your business to capture footage, ready for websites.",
+    "thumbnail": "/assets/uploads/Videography for Websites.mp4",
+    "video_url": "https://www.burrowcafe.com.au"
+  }
+]
