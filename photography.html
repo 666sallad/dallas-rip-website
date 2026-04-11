@@ -198,15 +198,27 @@
                         tabs.forEach((t) => t.classList.remove("active"));
                         tab.classList.add("active");
                         const filter = tab.dataset.filter;
+
                         items.forEach((item) => {
                             item.style.transitionDelay = "0s";
                             const categories = item.dataset.cat
                                 ? item.dataset.cat.split(" ")
                                 : [];
-                            if (
-                                filter === "all" ||
-                                categories.includes(filter)
-                            ) {
+                            let shouldShow = false;
+
+                            if (filter === "all") {
+                                // For 'All', show if it's NOT commercial work.
+                                if (!categories.includes("commercial")) {
+                                    shouldShow = true;
+                                }
+                            } else {
+                                // For specific filters, show if it includes that category.
+                                if (categories.includes(filter)) {
+                                    shouldShow = true;
+                                }
+                            }
+
+                            if (shouldShow) {
                                 item.classList.remove("hidden");
                             } else {
                                 item.classList.add("hidden");
