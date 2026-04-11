@@ -117,6 +117,27 @@ document.addEventListener("DOMContentLoaded", () => {
     material.uniforms.uClickPos.value.y = 1.0 - e.clientY / window.innerHeight;
   });
 
+  // Touch support — move glow to finger position and flash on tap
+  window.addEventListener("touchmove", (e) => {
+    const t = e.touches[0];
+    gsap.to(material.uniforms.uMouse.value, {
+      x: t.clientX / window.innerWidth,
+      y: 1.0 - t.clientY / window.innerHeight,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  }, { passive: true });
+
+  window.addEventListener("touchstart", (e) => {
+    const t = e.touches[0];
+    material.uniforms.uClickTime.value = material.uniforms.uTime.value;
+    material.uniforms.uClickPos.value.x = t.clientX / window.innerWidth;
+    material.uniforms.uClickPos.value.y = 1.0 - t.clientY / window.innerHeight;
+    // Also move the glow instantly to the tap point
+    material.uniforms.uMouse.value.x = t.clientX / window.innerWidth;
+    material.uniforms.uMouse.value.y = 1.0 - t.clientY / window.innerHeight;
+  }, { passive: true });
+
   // Animation Loop
   const startTime = performance.now();
   function animate() {
