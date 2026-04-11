@@ -145,7 +145,7 @@
                             <button class="filter-tab" data-filter="people">
                                 People
                             </button>
-                            <button class="filter-tab" data-filter="commercial">
+                            <button class="filter-tab" data-filter="commercial work">
                                 Commercial Work
                             </button>
                         </div>
@@ -340,7 +340,7 @@
                         if (item.categories && item.categories.length > 0) {
                             galleryImg.dataset.cat = item.categories
                                 .map((c) => c.toLowerCase())
-                                .join(" ");
+                                .join(",");
                         }
                         galleryImg.dataset.title = item.title || "Untitled";
                         galleryImg.dataset.description = item.description || "";
@@ -413,14 +413,14 @@
                         items.forEach((item) => {
                             item.style.transitionDelay = "0s";
                             const categories = item.dataset.cat
-                                ? item.dataset.cat.split(" ")
+                                ? item.dataset.cat.split(",")
                                 : [];
                             let shouldShow = false;
 
                             if (filter === "all") {
-                                // Hide only if commercial is the SOLE tag.
-                                // Items tagged commercial + portrait etc. still show.
-                                const onlyCommercial = categories.length === 1 && categories.includes("commercial");
+                                // Hide only if "commercial work" is the SOLE tag.
+                                // Items tagged commercial work + something else still show.
+                                const onlyCommercial = categories.length === 1 && categories[0] === "commercial work";
                                 if (!onlyCommercial) {
                                     shouldShow = true;
                                 }
