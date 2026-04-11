@@ -13,22 +13,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   headerPlaceholder.innerHTML = `
     <style>
-      .menu-icon { width: 30px; height: 20px; position: relative; cursor: pointer; z-index: 10005; pointer-events: auto; }
+      .menu-icon { width: 22px; height: 16px; position: relative; cursor: pointer; z-index: 10005; pointer-events: auto; }
       .menu-icon span { display: block; position: absolute; height: 2px; width: 100%; background: var(--text-main); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
       .menu-icon span:nth-child(1) { top: 0; }
-      .menu-icon span:nth-child(2) { top: 9px; }
-      .menu-icon span:nth-child(3) { top: 18px; }
-      .menu-icon.open span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+      .menu-icon span:nth-child(2) { top: 7px; }
+      .menu-icon span:nth-child(3) { top: 14px; }
+      .menu-icon.open span:nth-child(1) { top: 7px; transform: rotate(45deg); }
       .menu-icon.open span:nth-child(2) { opacity: 0; }
-      .menu-icon.open span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+      .menu-icon.open span:nth-child(3) { top: 7px; transform: rotate(-45deg); }
       #global-header { position: fixed; top: 0; left: 0; z-index: 10000; width: 100%; pointer-events: none; }
+      #menuToggleWrap {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 44px; height: 44px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 12px;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+        cursor: pointer; pointer-events: auto;
+        transition: background 0.2s, border-color 0.2s;
+      }
+      #menuToggleWrap:hover { background: rgba(255,255,255,0.11); border-color: rgba(255,255,255,0.28); }
 
       .nav-anim { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
       #menuOverlay.open .nav-anim { opacity: 1; transform: translateY(0); }
     </style>
-    <header style="display: flex; justify-content: flex-end; align-items: center; padding: 25px 35px; pointer-events: none;">
-      <div id="menuToggle" class="menu-icon">
-        <span></span><span></span><span></span>
+    <header style="display: flex; justify-content: flex-start; align-items: center; padding: 30px 30px; pointer-events: none;">
+      <div id="menuToggleWrap">
+        <div id="menuToggle" class="menu-icon">
+          <span></span><span></span><span></span>
+        </div>
       </div>
     </header>
 
