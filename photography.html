@@ -9,6 +9,7 @@
             href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap"
             rel="stylesheet"
         />
+        <script src="loader.js"></script>
         <link rel="stylesheet" href="global.css" />
     </head>
     <body>
@@ -120,6 +121,12 @@
                 heroContent.style.transform = `translateY(${y * 0.5}px)`;
                 heroContent.style.opacity = Math.max(0, 1 - y * 0.003);
                 scrollIndicator.style.opacity = Math.max(0, 0.7 - y * 0.005);
+            });
+
+            scrollIndicator.addEventListener("click", () => {
+                document
+                    .querySelector(".container")
+                    .scrollIntoView({ behavior: "smooth" });
             });
 
             // 1. DECAP CMS DYNAMIC CONTENT LOADING

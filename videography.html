@@ -9,6 +9,7 @@
             href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap"
             rel="stylesheet"
         />
+        <script src="loader.js"></script>
         <link rel="stylesheet" href="global.css" />
     </head>
     <body>
@@ -21,13 +22,16 @@
 
                 <!-- IMMERSIVE HERO -->
                 <div class="hero-wrapper">
-                    <div
+                    <video
                         class="hero-bg"
                         id="heroBg"
-                        style="
-                            background-image: url(&quot;https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?q=80&w=2000&auto=format&fit=crop&quot;);
-                        "
-                    ></div>
+                        src="assets/uploads/kwun tong mtr.mp4"
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        style="object-fit: cover"
+                    ></video>
                     <div class="hero-vignette"></div>
 
                     <div class="hero-content" id="heroContent">
@@ -78,7 +82,37 @@
             // 0. HERO ANIMATION
             const scrollArea = document.getElementById("scrollArea");
             const heroBg = document.getElementById("heroBg");
-            // ... (rest of hero animation code is unchanged)
+            const heroContent = document.getElementById("heroContent");
+            const scrollIndicator = document.getElementById("scrollIndicator");
+
+            if (scrollArea && heroBg) {
+                scrollArea.addEventListener("scroll", () => {
+                    let y = scrollArea.scrollTop;
+                    let scale = Math.max(0.95, 1.1 - y * 0.0003);
+                    let brightness = Math.max(0.1, 0.6 - y * 0.0005);
+                    let blur = Math.min(20, y * 0.02);
+                    heroBg.style.transform = `scale(${scale})`;
+                    heroBg.style.filter = `brightness(${brightness}) blur(${blur}px)`;
+                    if (heroContent) {
+                        heroContent.style.transform = `translateY(${y * 0.5}px)`;
+                        heroContent.style.opacity = Math.max(0, 1 - y * 0.003);
+                    }
+                    if (scrollIndicator) {
+                        scrollIndicator.style.opacity = Math.max(
+                            0,
+                            0.7 - y * 0.005,
+                        );
+                    }
+                });
+            }
+
+            if (scrollIndicator) {
+                scrollIndicator.addEventListener("click", () => {
+                    document
+                        .querySelector(".container")
+                        .scrollIntoView({ behavior: "smooth" });
+                });
+            }
 
             // 1. DYNAMIC CONTENT LOADING FROM DECAP CMS
             const videoGrid = document.getElementById("videoGrid");
