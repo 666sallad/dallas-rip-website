@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>dallas.rip // wallpapers</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <script src="loader.js"></script>
+        <script src="settings-manager.js"></script>
+        <link rel="stylesheet" href="global.css" />
+        <style>
+            .wallpaper-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 2px;
+                margin-top: 40px;
+            }
+
+            .wallpaper-card {
+                position: relative;
+                aspect-ratio: 16 / 9;
+                overflow: hidden;
+                cursor: pointer;
+                background: rgba(255, 255, 255, 0.03);
+            }
+
+            .wallpaper-card img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                    filter 0.4s ease;
+                filter: brightness(0.85);
+            }
+
+            .wallpaper-card:hover img {
+                transform: scale(1.04);
+                filter: brightness(1);
+            }
+
+            .wallpaper-card-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, 0.75) 0%,
+                    transparent 50%
+                );
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                padding: 16px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .wallpaper-card:hover .wallpaper-card-overlay {
+                opacity: 1;
+            }
+
+            .wallpaper-card-title {
+                font-family: var(--mono);
+                font-size: 11px;
+                letter-spacing: 0.1em;
+                text-transform: lowercase;
+                color: #fff;
+                margin-bottom: 10px;
+            }
+
+            .wallpaper-dl-btns {
+                display: flex;
+                gap: 8px;
+            }
+
+            .wallpaper-dl-btn {
+                font-family: var(--mono);
+                font-size: 10px;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                padding: 5px 10px;
+                border: 1px solid rgba(255, 255, 255, 0.4);
+                color: #fff;
+                text-decoration: none;
+                background: rgba(0, 0, 0, 0.4);
+                backdrop-filter: blur(4px);
+                transition: background 0.2s, border-color 0.2s;
+            }
+
+            .wallpaper-dl-btn:hover {
+                background: rgba(255, 255, 255, 0.15);
+                border-color: rgba(255, 255, 255, 0.8);
+            }
+
+            /* Mobile-only cards are portrait ratio */
+            .wallpaper-card.is-mobile-preview {
+                aspect-ratio: 9 / 16;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="monitor-bezel">
+            <div class="monitor-screen" id="scrollArea">
+                <div class="screen-overlay"></div>
+
+                <div id="global-header"></div>
+
+                <!-- HERO -->
+                <div class="hero-wrapper">
+                    <div
+                        class="hero-bg"
+                        id="heroBg"
+                        style="background-image: url('assets/uploads/wallpapers/nobodys-home-desktop.avif')"
+                    ></div>
+                    <div class="hero-vignette"></div>
+                    <div class="hero-content" id="heroContent">
+                        <div class="micro-text">Free Downloads</div>
+                        <h1
+                            class="hero-title"
+                            style="font-size: clamp(32px, 5vw, 48px); font-weight: 300; letter-spacing: 0.05em"
+                        >
+                            dallas' wallpapers
+                        </h1>
+                        <div class="hero-jump-links" style="justify-content: center">
+                            <a href="#wallpapers" class="hero-jump-link">↓ Browse</a>
+                        </div>
+                    </div>
+                    <div class="scroll-indicator" id="scrollIndicator">
+                        <span class="micro-text">SCROLL_TO_ACCESS</span>
+                        <div class="scroll-line"></div>
+                    </div>
+                </div>
+
+                <!-- MAIN CONTENT -->
+                <div class="container">
+                    <div class="gallery-header fade-element" id="wallpapers">
+                        <h2 class="section-header">Wallpaper Collection</h2>
+                        <p style="color: var(--text-muted); margin-top: 8px; font-size: 14px">
+                            Free to download. Click any wallpaper for desktop (16:9) and mobile (9:16) versions.
+                        </p>
+                    </div>
+
+                    <div class="wallpaper-grid fade-element" id="wallpaperGrid">
+                        <!-- Dynamically injected -->
+                    </div>
+
+                    <div id="global-footer" style="margin-top: 80px"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="footer.js"></script>
+        <script>
+            // Hero parallax
+            const scrollArea = document.getElementById("scrollArea");
+            const heroBg = document.getElementById("heroBg");
+            const heroContent = document.getElementById("heroContent");
+            const scrollIndicator = document.getElementById("scrollIndicator");
+
+            scrollArea.addEventListener("scroll", () => {
+                const y = scrollArea.scrollTop;
+                heroBg.style.transform = `scale(${Math.max(0.95, 1.1 - y * 0.0003)})`;
+                heroBg.style.filter = `brightness(${Math.max(0.1, 0.6 - y * 0.0005)}) blur(${Math.min(20, y * 0.02)}px)`;
+                heroContent.style.transform = `translateY(${y * 0.5}px)`;
+                heroContent.style.opacity = Math.max(0, 1 - y * 0.003);
+                scrollIndicator.style.opacity = Math.max(0, 0.7 - y * 0.005);
+            });
+
+            scrollIndicator.addEventListener("click", () => {
+                document.querySelector(".container").scrollIntoView({ behavior: "smooth" });
+            });
+
+            // Load wallpapers from JSON
+            async function loadWallpapers() {
+                try {
+                    const res = await fetch("/_wallpapers.json");
+                    if (!res.ok) throw new Error("fetch failed");
+                    const items = await res.json();
+                    const grid = document.getElementById("wallpaperGrid");
+
+                    grid.innerHTML = "";
+                    items.forEach((item) => {
+                        const card = document.createElement("div");
+                        card.className = "wallpaper-card";
+                        card.innerHTML = `
+                            <img src="${item.desktop}" alt="${item.title}" loading="lazy">
+                            <div class="wallpaper-card-overlay">
+                                <div class="wallpaper-card-title">${item.title}</div>
+                                <div class="wallpaper-dl-btns">
+                                    <a href="${item.desktop}" download class="wallpaper-dl-btn">Desktop</a>
+                                    <a href="${item.mobile}" download class="wallpaper-dl-btn">Mobile</a>
+                                </div>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                } catch (e) {
+                    console.error("Could not load wallpapers:", e);
+                    document.getElementById("wallpaperGrid").innerHTML =
+                        '<p style="color:var(--text-muted)">Could not load wallpapers.</p>';
+                } finally {
+                    if (window.pageIsReady) window.pageIsReady();
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                loadWallpapers();
+
+                // Fade-in observer
+                const observer = new IntersectionObserver(
+                    (entries) => entries.forEach((e) => {
+                        if (e.isIntersecting) { e.target.classList.add("is-visible"); observer.unobserve(e.target); }
+                    }),
+                    { root: scrollArea, threshold: 0.05 }
+                );
+                document.querySelectorAll(".fade-element").forEach((el) => observer.observe(el));
+            });
+        </script>
+        <script src="header.js"></script>
+        <script src="background.js" type="module"></script>
+    </body>
+</html>

@@ -29,8 +29,10 @@ const filesToCopy = [
   "settings-manager.js",
   "styles.html",
   "videography.html",
+  "wallpapers.html",
   "websites.html",
   "_data",
+  "_wallpapers",
   "admin",
 ];
 
@@ -84,8 +86,10 @@ function generateContentJson(directory, outputFileName) {
 
       // Rewrite image paths from .jpg/.jpeg/.png → .avif so the live site
       // serves the optimized AVIF files generated during the build.
-      if (data.image) {
-        data.image = data.image.replace(/\.(jpg|jpeg|png)$/i, ".avif");
+      for (const field of ["image", "desktop", "mobile"]) {
+        if (data[field]) {
+          data[field] = data[field].replace(/\.(jpg|jpeg|png)$/i, ".avif");
+        }
       }
 
       return data;
@@ -103,6 +107,7 @@ function generateContentJson(directory, outputFileName) {
 
 generateContentJson("_photography", "_photography.json");
 generateContentJson("_videography", "_videography.json");
+generateContentJson("_wallpapers", "_wallpapers.json");
 
 // 5. Copy assets to dist, serving pre-converted AVIFs where available.
 // If a .avif already exists alongside the source image (committed to git after
