@@ -15,6 +15,7 @@ console.log("Created libs directory.");
 
 // 2. Copy all necessary static files and folders (assets copied separately below)
 const filesToCopy = [
+  "404.html",
   "about.html",
   "advertising.html",
   "background.js",
